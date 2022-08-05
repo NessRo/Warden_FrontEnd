@@ -1,0 +1,22 @@
+{
+  "blogs": [
+    {
+      "title": "My first Blogs",
+      "body": "Why do we use it",
+      "author": "mario",
+      "id": 1
+    },
+    {
+      "title": "My 2nd Blogs",
+      "body": "Why dont we use it",
+      "author": "nassim",
+      "id": 2
+    },
+    {
+      "title": "hello test",
+      "body": "Please enter a valid namePlease enter a valid namePlease enter a valid namePlease enter a valid namePlease enter a valid namePlease enter a valid namePlease enter a valid namePlease enter a valid namePlease enter a valid namePlease enter a valid body",
+      "author": "yoshi",
+      "id": 3
+    }
+  ]
+}
