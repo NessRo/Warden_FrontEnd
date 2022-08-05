@@ -1,26 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
-import Home from './home';
+
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
-import Create from './Create';
-import Navbar from './Navbar';
-import BlogDetails from './BlogDetails';
-import NotFound from './Notfound';
+
+import Navbar from './components/Navbar';
+import Admin from './pages/Admin';
+import Home from './pages/home';
+import OnBoarding from './pages/Onboarding';
+import './App.css';
+
 
 function App() {
   return (
     <Router>
-      <div className="App">
-      <Navbar />
-        <div className='content'>
+    <>
+        <Navbar>
           <Routes>
             <Route exact path='/' element={<Home />}></Route>
-            <Route exact path='/Create' element={<Create />}></Route>
-            <Route exact path='/blogs/:id' element={<BlogDetails />}></Route>
-            <Route exact path="*" element={<NotFound />}></Route>
+            <Route exact path='/OnBoarding' element={OnBoarding}></Route>
+            <Route exact path='/Admin' element={Admin}></Route>
           </Routes>
-        </div>
-      </div>
+        </Navbar>
+    
+    
+    </>
     </Router>
   );
 }
