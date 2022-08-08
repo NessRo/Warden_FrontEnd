@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import { Link, Router } from 'react-router-dom'
-import {AdminData, SidebarData} from './AdminData'
 import ListGroup from 'react-bootstrap/ListGroup';
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
