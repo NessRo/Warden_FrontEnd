@@ -1,0 +1,15 @@
+.input {
+  
+}
+
+.textContainer {
+  display: flex;
+  align-items: center;
+}
+
+.text{
+  padding: 0.375rem 0.75rem;
+  font-weight: 400;
+  line-height: 1.5;
+  border-bottom: 1px solid grey
+}

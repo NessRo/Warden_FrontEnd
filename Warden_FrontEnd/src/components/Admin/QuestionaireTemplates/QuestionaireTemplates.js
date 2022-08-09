@@ -1,20 +1,24 @@
-import React, {useState} from 'react'
+import { useCallback, useEffect, useState } from "react";
 import './QuestionaireTemplates.css'
 import { QuestionaireData } from './QuestionaireData';
 import {nanoid} from 'nanoid';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
+import { useNavigate } from "react-router-dom";
 
 
 const QuestionaireTemplates = () => {
 
+
+  const navigate = useNavigate();
+  const handleOnClick = useCallback(() => navigate("/Questionaire-Templates/NewQuestionaire"));
 
 
   return (
      
     
     <>
-    <Button variant="outline-primary" id="Create-new-questionaire-button">Create New</Button>{' '}
+    <Button variant="outline-primary" id="Create-new-questionaire-button" onClick={handleOnClick}>Create New</Button>{' '}
 
    
     <Table responsive>
