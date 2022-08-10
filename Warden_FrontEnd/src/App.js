@@ -8,6 +8,7 @@ import OnBoarding from './pages/Onboarding';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import QuestionaireTemplates from './components/Admin/QuestionaireTemplates/QuestionaireTemplates';
 import NavBar from './components/NavBar/NavBar';
+import NewQuestionaire from './components/Admin/QuestionaireTemplates/NewQuestionaire';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route exact path='/OnBoarding' element={<OnBoarding />}></Route>
         <Route exact path='/Admin' element={<Admin />}></Route>
         <Route exact path='/Questionaire-Templates' element={<QuestionaireTemplates />}></Route>
+        <Route exact path='/Questionaire-Templates/NewQuestionaire' element={<NewQuestionaire />}></Route>
 
       </Routes>
     
