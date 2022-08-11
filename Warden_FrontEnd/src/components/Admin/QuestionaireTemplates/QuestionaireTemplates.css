@@ -3,3 +3,11 @@
   margin-right: 40px;
   display: flex;
 }
+
+.body {background-color: #D9D9D9}
+
+
+.new-question-button{
+  border: 0ch;
+  background-color: rgba(0,0,0,0) ;
+}

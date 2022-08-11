@@ -11,7 +11,7 @@ import './Navbar.css';
 
 const NavBar = () => {
     return (
-        <Navbar  bg="light" expand='false' className="mb-3">
+        <Navbar  bg="light" expand='false' className="mb-3" sticky="top">
           <Container fluid>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-False`} />
             <Navbar.Brand href="/" className="Nav-brand">Warden</Navbar.Brand>
