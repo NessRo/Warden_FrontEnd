@@ -17,17 +17,21 @@ const NewQuestionaire = () => {
     useEffect(()=>  { document.body.style.backgroundColor = '#EFEBEB' }, []);
 
     const [newSection, setNewSection] = useState([]);
+    // const [newSection, setNewSection] = useState({questionaire_id:{}}); ---convert use state to dictionary IDs
     const [Name, setName] = useState("");
 
 
     const handleNewQuestionSection = () => {
-        setNewSection([...newSection,uuidv4()]);
+        let NewQuestionaireSectionProps = {id:uuidv4(),
+                                            title:'lower-level-prop',
+                                            questions:[]}
+        setNewSection([...newSection,NewQuestionaireSectionProps]);
         console.log(newSection)
     };
 
     const onNameChange = (val) => {
         setName(val);
-        console.log('name has changed');
+        console.log(val);
       };
 
     

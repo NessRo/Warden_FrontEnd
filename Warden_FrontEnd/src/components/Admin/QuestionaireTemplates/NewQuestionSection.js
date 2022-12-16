@@ -17,6 +17,7 @@ import { BiArrowFromTop } from "react-icons/bi";
 import { AiOutlineDelete } from "react-icons/ai";
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import { useEffect } from 'react';
 
 
 
@@ -38,22 +39,31 @@ function CustomToggle({ children, eventKey }) {
   }
 
   
-  const NewQuestionSection = () => {
+  const NewQuestionSection = (props) => {
 
+    const [SectionTitleValue, SetSectionTitleValue] = useState("");
 
     const [NewQuestion, setNewQuestion] = useState([]);
 
+
     const handleNewQuestion = () => {
       setNewQuestion([...NewQuestion,uuidv4()]);
-      console.log(NewQuestion)
+      console.log(NewQuestion);
   };
+
+    const handleQuestionaireTitleChange = (e) =>{
+      SetSectionTitleValue(e.currentTarget.value);
+      // console.log(SectionTitleValue)
+    };
+
+  
 
     return (
       <Accordion defaultActiveKey="0">
         <Card>
           <Card.Header>
             <div style={{display: "flex", justifyContent: "space-between"}}>
-            <Form.Control style={{width: '50%',  display: "inline-block"}}></Form.Control>
+            <Form.Control style={{width: '50%',  display: "inline-block"}}  type="text" value={SectionTitleValue} onChange={handleQuestionaireTitleChange}></Form.Control>
             <CustomToggle eventKey="0"></CustomToggle>
             </div>
           </Card.Header>
