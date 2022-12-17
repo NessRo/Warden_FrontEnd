@@ -56,10 +56,38 @@ function CustomToggle({ children, eventKey }) {
       // console.log(SectionTitleValue)
     };
 
+    const handleQuestionaireSectionDelete = () =>{
+
+      let CopyOfQuestionaireContent  = {...props.current_questionaire_section_content};
+
+      delete CopyOfQuestionaireContent[props.current_questionaire_section_id];
+
+
+      props.modify_questionaire_section_content(({
+        CopyOfQuestionaireContent}));
+      
+      props.modify_questionaire_template_content({...props.current_questionaire_template_content,
+        contents:{
+            ...props.current_questionaire_template_content.contents,
+            QuestionSections:props.current_questionaire_section_content
+        }});
+
+      };
+
   
 
     return (
+      
       <Accordion defaultActiveKey="0">
+
+
+        <div style={{display: "flex", justifyContent: "space-between", float: "right"}}>
+        <Button bsPrefix="new-question-button" onClick={handleQuestionaireSectionDelete}>
+            <AiOutlineDelete />
+        </Button>
+        </div>
+
+
         <Card>
           <Card.Header>
             <div style={{display: "flex", justifyContent: "space-between"}}>
