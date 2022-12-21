@@ -27,7 +27,7 @@ function CustomToggle({ children, eventKey }) {
 }
 
 
-export default function NewQuestionSectionV2({Sections, onChangeTask, onDeleteTask}) {
+export default function NewQuestionSectionV2({Sections, onChangeTitle, onDeleteSection}) {
     return(
     <>
           {Sections.map((Section) => (
@@ -37,7 +37,7 @@ export default function NewQuestionSectionV2({Sections, onChangeTask, onDeleteTa
 
 
               <div style={{display: "flex", justifyContent: "space-between", float: "right"}}>
-                <Button bsPrefix="new-question-button">
+                <Button bsPrefix="new-question-button" onClick={() => onDeleteSection(Section.id)}>
                     <AiOutlineDelete />
                 </Button>
               </div>
@@ -45,7 +45,12 @@ export default function NewQuestionSectionV2({Sections, onChangeTask, onDeleteTa
               <Card>
                 <Card.Header>
                   <div style={{display: "flex", justifyContent: "space-between"}}>
-                    <Form.Control style={{width: '50%',  display: "inline-block"}}  type="text"></Form.Control>
+                    <Form.Control style={{width: '50%',  display: "inline-block"}}  type="text" value={Section.title}   onChange={e => {
+                                                                                                                                        onChangeTitle({
+                                                                                                                                          ...Section, 
+                                                                                                                                          title: e.target.value
+                                                                                                                                          });
+                                                                                                                                          }} ></Form.Control>
                     <CustomToggle eventKey="0"></CustomToggle>
                   </div>
                 </Card.Header>

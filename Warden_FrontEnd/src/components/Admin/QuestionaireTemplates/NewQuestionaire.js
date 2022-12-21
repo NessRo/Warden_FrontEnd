@@ -19,15 +19,15 @@ function questionaireReducer(newSection, action) {
         case 'added': {
             return[...newSection,{
                                     id: uuidv4(),
-                                    Title: '',
+                                    title: 'Enter New Section Title',
                                     questions:[]
                                 },
             ]
         }
         case 'changed': {
-            return newSection.map((t) => {
-                if (t.id == action.title.id) {
-                    return action.title;
+            return newSection.map(t => {
+                if (t.id == action.section.id) {
+                    return action.section;
                 } else {
                     return t;
                 }
@@ -46,6 +46,7 @@ function questionaireReducer(newSection, action) {
 const NewQuestionaire = () => {
 
     useEffect(()=>  { document.body.style.backgroundColor = '#EFEBEB' }, []);
+    useEffect(() => {console.log(Sections)},[])
 
     const [QuestionaireTemplate, setQuestionaireTemplate] = useState({id:'',
                                                                     TemplateName:'',
@@ -63,7 +64,7 @@ const NewQuestionaire = () => {
         [...newSection,
         {
             id: uuidv4(),
-            Title: '',
+            title: 'Enter New Title for Questionaire Section',
             questions:[]
         }]
        )
@@ -88,14 +89,14 @@ const NewQuestionaire = () => {
         });
       }
 
-    function handleTitleChanges(title) {
+    function handleTitleChanges(section) {
         dispatch({
           type: 'changed',
-          title: title,
+          section: section,
         });
       }
 
-    function handleDeleteTask(Id) {
+    function handleDeleteSection(Id) {
         dispatch({
           type: 'deleted',
           id: Id,
@@ -124,7 +125,7 @@ const NewQuestionaire = () => {
 
             <div style={{ height: "25px" }}/>
             
-            <NewQuestionSectionV2 Sections={Sections}/>
+            <NewQuestionSectionV2 Sections={Sections} onDeleteSection={handleDeleteSection} onChangeTitle={handleTitleChanges}/>
 
             <div style={{ height: "25px" }}/>
             <Container>
