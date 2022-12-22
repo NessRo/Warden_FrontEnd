@@ -8,24 +8,25 @@ import EditableText from '../../EditableText/Editabletext';
 import { useEffect } from 'react';
 import './QuestionaireTemplates.css'
 import { v4 as uuidv4 } from 'uuid';
-import NewQuestionSectionV2 from './NewQuestionaireSection_V2';
+import NewQuestionSection from './NewQuestionaireSection';
 import {useReducer} from 'react';
 
 
 
-function questionaireReducer(newSection, action) {
+function questionaireReducer(Sections, action) {
     // return next state for React to set
     switch (action.type) {
         case 'added': {
-            return[...newSection,{
+            return[...Sections,{
                                     id: uuidv4(),
-                                    title: 'Enter New Section Title',
+                                    title: '',
                                     questions:[]
                                 },
             ]
         }
+
         case 'changed': {
-            return newSection.map(t => {
+            return Sections.map(t => {
                 if (t.id == action.section.id) {
                     return action.section;
                 } else {
@@ -33,9 +34,22 @@ function questionaireReducer(newSection, action) {
                 }
             })
         }
+
         case 'deleted': {
-            return newSection.filter((t) => t.id !== action.id);
+            return Sections.filter((t) => t.id !== action.id);
         }
+
+        case 'add-question': {
+            return Sections.map(t => {
+                if (t.id == action.section.id) {
+                    return action.section;
+                                
+                } else {
+                    return t;
+                }
+            })
+        }
+
         default: {
             throw Error('Unknown action: ' + action.type);
         }
@@ -46,31 +60,16 @@ function questionaireReducer(newSection, action) {
 const NewQuestionaire = () => {
 
     useEffect(()=>  { document.body.style.backgroundColor = '#EFEBEB' }, []);
-    useEffect(() => {console.log(Sections)},[])
 
     const [QuestionaireTemplate, setQuestionaireTemplate] = useState({id:'',
                                                                     TemplateName:'',
                                                                     created:'',
                                                                     contents:{QuestionSections:''}});
-    const [newSection, setNewSection] = useState([]); 
     const [Name, setName] = useState("");
 
     const [Sections, dispatch] = useReducer(questionaireReducer, []);
 
 
-    const handleNewQuestionSection = () => {
-
-       setNewSection(
-        [...newSection,
-        {
-            id: uuidv4(),
-            title: 'Enter New Title for Questionaire Section',
-            questions:[]
-        }]
-       )
-
-       console.log(newSection)
-    };
 
     const onNameChange = (val) => {
         
@@ -87,6 +86,7 @@ const NewQuestionaire = () => {
           type: 'added',
           id: uuidv4(),
         });
+        console.log(Sections)
       }
 
     function handleTitleChanges(section) {
@@ -101,6 +101,14 @@ const NewQuestionaire = () => {
           type: 'deleted',
           id: Id,
         });
+      }
+
+    function handleAddQuestion(section) {
+        dispatch({
+          type: 'add-question',
+          section: section
+        });
+        
       }
 
     
@@ -125,7 +133,7 @@ const NewQuestionaire = () => {
 
             <div style={{ height: "25px" }}/>
             
-            <NewQuestionSectionV2 Sections={Sections} onDeleteSection={handleDeleteSection} onChangeTitle={handleTitleChanges}/>
+            <NewQuestionSection Sections={Sections} onDeleteSection={handleDeleteSection} onChangeTitle={handleTitleChanges} onNewQuestion={handleAddQuestion} />
 
             <div style={{ height: "25px" }}/>
             <Container>
