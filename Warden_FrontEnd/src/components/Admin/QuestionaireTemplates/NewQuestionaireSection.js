@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import NewQuestions from './NewQuestions';
+import NewQuestion from './NewQuestions';
 import { v4 as uuidv4 } from 'uuid';
 
 import Accordion from 'react-bootstrap/Accordion';
@@ -29,7 +29,7 @@ function CustomToggle({ children, eventKey }) {
 }
 
 
-export default function NewQuestionSection({Sections, onChangeTitle, onDeleteSection, onNewQuestion}) {
+export default function NewQuestionSection({Sections, onChangeTitle, onDeleteSection, onNewQuestion, onDeleteQuestion}) {
     return(
     <>
           {Sections.map((Section) => (
@@ -58,7 +58,9 @@ export default function NewQuestionSection({Sections, onChangeTitle, onDeleteSec
                 </Card.Header>
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
-                    
+                  
+                  <NewQuestion Section_questions={Section.questions} onDeleteQuestion={onDeleteQuestion} Section = {Section} onNewQuestion={onNewQuestion}/>                                                                                                                          
+
                   <DropdownButton
                   key='end'
                   id={`dropdown-button-drop-NewQuestion`}

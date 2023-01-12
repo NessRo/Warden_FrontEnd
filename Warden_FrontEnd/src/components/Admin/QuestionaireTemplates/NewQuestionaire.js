@@ -50,6 +50,17 @@ function questionaireReducer(Sections, action) {
             })
         }
 
+            case 'delete-question': {
+                return Sections.map(t => {
+                    if (t.id == action.section.id) {
+                        return action.section;
+                                    
+                    } else {
+                        return t;
+                    }
+                })
+            }
+
         default: {
             throw Error('Unknown action: ' + action.type);
         }
@@ -111,6 +122,13 @@ const NewQuestionaire = () => {
         
       }
 
+    function handleDeleteQuestion(section) {
+        dispatch({
+          type: 'delete-question',
+          section: section
+        });
+      }
+
     
       
       
@@ -133,7 +151,7 @@ const NewQuestionaire = () => {
 
             <div style={{ height: "25px" }}/>
             
-            <NewQuestionSection Sections={Sections} onDeleteSection={handleDeleteSection} onChangeTitle={handleTitleChanges} onNewQuestion={handleAddQuestion} />
+            <NewQuestionSection Sections={Sections} onDeleteSection={handleDeleteSection} onChangeTitle={handleTitleChanges} onNewQuestion={handleAddQuestion} onDeleteQuestion={handleDeleteQuestion} />
 
             <div style={{ height: "25px" }}/>
             <Container>
