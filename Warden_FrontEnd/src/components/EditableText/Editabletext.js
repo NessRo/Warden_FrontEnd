@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from "react";
+import { setTemplateName } from "../Admin/QuestionaireTemplates/actions";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { Form } from "react-bootstrap";
 import style from "./EditableText.module.css";
 import classNames from "classnames";
+import { store } from "../../store";
 
 const EditableText = ({
   val,
@@ -35,6 +37,9 @@ const EditableText = ({
 
   const handleOnChange = (e) => {
     setText(e.target.value);
+    store.dispatch(setTemplateName(e.target.value));
+    console.log(store.getState())
+
   };
 
   const handleOnKeyDown = (e) => {

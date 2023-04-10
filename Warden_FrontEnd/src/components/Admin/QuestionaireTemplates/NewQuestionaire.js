@@ -10,6 +10,12 @@ import './QuestionaireTemplates.css'
 import { v4 as uuidv4 } from 'uuid';
 import NewQuestionSection from './NewQuestionaireSection';
 import {useReducer} from 'react';
+import { addNewSection } from './actions';
+import { store } from '../../../store';
+import { useSelector } from 'react-redux';
+
+
+
 
 
 
@@ -50,16 +56,36 @@ function questionaireReducer(Sections, action) {
             })
         }
 
-            case 'delete-question': {
-                return Sections.map(t => {
-                    if (t.id == action.section.id) {
-                        return action.section;
-                                    
-                    } else {
-                        return t;
-                    }
-                })
-            }
+        case 'update-dropdown-option-property': {
+            const { sectionId, questionId, optionId, propertyName, propertyValue } = action.payload;
+            
+            const updatedSections = Sections.sections.map(section => {
+                if (section.id === sectionId) 
+                    {const updatedQuestions = section.questions.map(question => {
+                        if (question.id === questionId && question.type === 'dropdown') 
+                            {const updatedOptions = question.options.map(option => {
+                                if (option.id === optionId) 
+                                    {return {...option,[propertyName]: propertyValue};} 
+                                    else {return option;}});
+                            return {...question,options: updatedOptions};}
+                        else {return question;}});
+                                  
+                    return {...section,questions: updatedQuestions};} 
+                else {return section;}});
+
+            return {...Sections,sections: updatedSections};}
+    
+
+        case 'delete-question': {
+            return Sections.map(t => {
+                if (t.id == action.section.id) {
+                    return action.section;
+                                
+                } else {
+                    return t;
+                }
+            })
+        }
 
         default: {
             throw Error('Unknown action: ' + action.type);
@@ -70,7 +96,11 @@ function questionaireReducer(Sections, action) {
 
 const NewQuestionaire = () => {
 
+
+    
     useEffect(()=>  { document.body.style.backgroundColor = '#EFEBEB' }, []);
+
+    const state = store.getState()
 
     const [QuestionaireTemplate, setQuestionaireTemplate] = useState({id:'',
                                                                     TemplateName:'',
@@ -122,6 +152,25 @@ const NewQuestionaire = () => {
         
       }
 
+    function handleAddDropdownOption(section) {
+        
+        const sectionId = 1;
+        const questionId = 1;
+        const optionId = 1;
+        const propertyName = 'name';
+        const propertyValue = 'New Option Name';
+        
+        dispatch({
+          type: 'add-dropdown-option',
+          sectionId: sectionId,
+          questionId:questionId,
+          optionId:optionId,
+          propertyName:propertyName,
+          propertyValue:propertyValue,
+        });
+        
+      }
+
     function handleDeleteQuestion(section) {
         dispatch({
           type: 'delete-question',
@@ -151,12 +200,12 @@ const NewQuestionaire = () => {
 
             <div style={{ height: "25px" }}/>
             
-            <NewQuestionSection Sections={Sections} onDeleteSection={handleDeleteSection} onChangeTitle={handleTitleChanges} onNewQuestion={handleAddQuestion} onDeleteQuestion={handleDeleteQuestion} />
+            <NewQuestionSection state ={state} onDeleteSection={handleDeleteSection} onChangeTitle={handleTitleChanges} onNewQuestion={handleAddQuestion} onDeleteQuestion={handleDeleteQuestion} onAddDropdownOption = {handleAddDropdownOption} />
 
             <div style={{ height: "25px" }}/>
             <Container>
                 <div style={{ height: "25px" }}/>
-                <Button type='submit' onClick={handleAddSection}>New Section</Button>
+                <Button onClick={() => {store.dispatch(addNewSection('')); console.log(store.getState())}}>New Section</Button>
             </Container>
         </div>
   )

@@ -1,4 +1,6 @@
-import {useState} from 'react';
+import { store } from '../../../store';
+import { addNewQuestion, removeSection, updateSectionTitle } from './actions';
+import { useSelector } from 'react-redux';
 import NewQuestion from './NewQuestions';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -29,7 +31,10 @@ function CustomToggle({ children, eventKey }) {
 }
 
 
-export default function NewQuestionSection({Sections, onChangeTitle, onDeleteSection, onNewQuestion, onDeleteQuestion}) {
+export default function NewQuestionSection({ onNewQuestion, onDeleteQuestion ,onAddDropdownOption}) {
+
+    const Sections = useSelector(state => state.QuestionaireTemplates.Sections);
+
     return(
     <>
           {Sections.map((Section) => (
@@ -39,7 +44,7 @@ export default function NewQuestionSection({Sections, onChangeTitle, onDeleteSec
 
 
               <div style={{display: "flex", justifyContent: "space-between", float: "right"}}>
-                <Button bsPrefix="new-question-button" onClick={() => onDeleteSection(Section.id)}>
+                <Button bsPrefix="new-question-button" onClick={() => {store.dispatch(removeSection(Section.id))}}>
                     <AiOutlineDelete />
                 </Button>
               </div>
@@ -47,19 +52,15 @@ export default function NewQuestionSection({Sections, onChangeTitle, onDeleteSec
               <Card>
                 <Card.Header>
                   <div style={{display: "flex", justifyContent: "space-between"}}>
-                    <Form.Control style={{width: '50%',  display: "inline-block"}}  type="text" value={Section.title} placeholder='Please enter a title for this section of questions'  onChange={e => {
-                                                                                                                                        onChangeTitle({
-                                                                                                                                          ...Section, 
-                                                                                                                                          title: e.target.value
-                                                                                                                                          });
-                                                                                                                                          }} ></Form.Control>
+                    <Form.Control style={{width: '50%',  display: "inline-block"}}  type="text" value={Section.title} placeholder='Please enter a title for this section of questions'  
+                                                                                    onChange={e => {store.dispatch(updateSectionTitle(Section.id,e.target.value))}} ></Form.Control>
                     <CustomToggle eventKey="0"></CustomToggle>
                   </div>
                 </Card.Header>
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
                   
-                  <NewQuestion Section_questions={Section.questions} onDeleteQuestion={onDeleteQuestion} Section = {Section} onNewQuestion={onNewQuestion}/>                                                                                                                          
+                  <NewQuestion Section = {Section} />                                                                                                                          
 
                   <DropdownButton
                   key='end'
@@ -69,35 +70,19 @@ export default function NewQuestionSection({Sections, onChangeTitle, onDeleteSec
                   title={`New Question`}
                   size='sm'
                 >
-                  <Dropdown.Item eventKey="1" onClick={() => {onNewQuestion({
-                                                                            ...Section,
-                                                                            questions: [...Section.questions,
-                                                                                            {id:uuidv4(),
-                                                                                            type: 'free-text',
-                                                                                            text: ''}]
-                                                                            });}} >Freetext Field</Dropdown.Item>
-                  <Dropdown.Item eventKey="2" onClick={() => {onNewQuestion({
-                                                                            ...Section,
-                                                                            questions: [...Section.questions,
-                                                                                            {id:uuidv4(),
-                                                                                            type: 'drop-down',
-                                                                                            text:'',
-                                                                                            options:[]}]
-                                                                            });}} >Dropdown Field</Dropdown.Item>
-                  <Dropdown.Item eventKey="3" onClick={() => {onNewQuestion({
-                                                                            ...Section,
-                                                                            questions: [...Section.questions,
-                                                                                            {id:uuidv4(),
-                                                                                            type: 'date-field',
-                                                                                            date: ''}]
-                                                                            });}} >Date Field</Dropdown.Item>
-                  <Dropdown.Item eventKey="4" onClick={() => {onNewQuestion({
-                                                                            ...Section,
-                                                                            questions: [...Section.questions,
-                                                                                            {id:uuidv4(),
-                                                                                            type: 'selection',
-                                                                                            options:[]}]
-                                                                            });}} >Selection Field</Dropdown.Item>
+                  <Dropdown.Item eventKey="1" onClick={() => {store.dispatch(addNewQuestion(Section.id,{id:uuidv4(),
+                                                                                                        type: 'free-text',
+                                                                                                        text: ''}))}} >Freetext Field</Dropdown.Item>
+                  <Dropdown.Item eventKey="2" onClick={() => {store.dispatch(addNewQuestion(Section.id,{id:uuidv4(),
+                                                                                                        type: 'drop-down',
+                                                                                                        text:'',
+                                                                                                        options:[]}))}} >Dropdown Field</Dropdown.Item>
+                  <Dropdown.Item eventKey="3" onClick={() => {store.dispatch(addNewQuestion(Section.id,{id:uuidv4(),
+                                                                                                        type: 'date-field',
+                                                                                                        date: ''}))}} >Date Field</Dropdown.Item>
+                  <Dropdown.Item eventKey="4" onClick={() => {store.dispatch(addNewQuestion(Section.id,{id:uuidv4(),
+                                                                                                        type: 'selection',
+                                                                                                        options:[]}))}} >Selection Field</Dropdown.Item>
                 </DropdownButton>
                   </Card.Body>
                 </Accordion.Collapse>
