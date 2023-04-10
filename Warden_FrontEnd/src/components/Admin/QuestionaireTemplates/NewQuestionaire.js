@@ -55,25 +55,6 @@ function questionaireReducer(Sections, action) {
                 }
             })
         }
-
-        case 'update-dropdown-option-property': {
-            const { sectionId, questionId, optionId, propertyName, propertyValue } = action.payload;
-            
-            const updatedSections = Sections.sections.map(section => {
-                if (section.id === sectionId) 
-                    {const updatedQuestions = section.questions.map(question => {
-                        if (question.id === questionId && question.type === 'dropdown') 
-                            {const updatedOptions = question.options.map(option => {
-                                if (option.id === optionId) 
-                                    {return {...option,[propertyName]: propertyValue};} 
-                                    else {return option;}});
-                            return {...question,options: updatedOptions};}
-                        else {return question;}});
-                                  
-                    return {...section,questions: updatedQuestions};} 
-                else {return section;}});
-
-            return {...Sections,sections: updatedSections};}
     
 
         case 'delete-question': {
