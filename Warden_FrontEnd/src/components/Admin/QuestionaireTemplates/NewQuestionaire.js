@@ -1,7 +1,9 @@
 import React from 'react'
+import { Navbar, Nav } from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
 import { useState } from 'react'
 import { Form } from "react-bootstrap";
-import { Button } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import { Row, Col } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import EditableText from '../../EditableText/Editabletext';
@@ -12,7 +14,8 @@ import NewQuestionSection from './NewQuestionaireSection';
 import {useReducer} from 'react';
 import { addNewSection } from './actions';
 import { store } from '../../../store';
-import { useSelector } from 'react-redux';
+import { clearState } from './actions';
+import { StyledBottomNavBarButton } from './CustomStyledComponents';
 
 
 
@@ -76,6 +79,18 @@ function questionaireReducer(Sections, action) {
 
 
 const NewQuestionaire = () => {
+
+    const navigate = useNavigate()
+  
+    const handleCancel = () => {
+      store.dispatch(clearState())
+      navigate('/Questionaire-Templates');
+    };
+
+    const [showCancelWarning, setCancelWarning] = useState(false);
+
+    const handleCloseCancelWarning = () => setCancelWarning(false);
+    const handleShowCancelWarning = () => setCancelWarning(true);
 
 
     
@@ -184,11 +199,53 @@ const NewQuestionaire = () => {
             <NewQuestionSection state ={state} onDeleteSection={handleDeleteSection} onChangeTitle={handleTitleChanges} onNewQuestion={handleAddQuestion} onDeleteQuestion={handleDeleteQuestion} onAddDropdownOption = {handleAddDropdownOption} />
 
             <div style={{ height: "25px" }}/>
-            <Container>
+            <Container style={{ paddingBottom: "150px" }}>
                 <div style={{ height: "25px" }}/>
                 <Button onClick={() => {store.dispatch(addNewSection('')); console.log(store.getState())}}>New Section</Button>
             </Container>
+
+            <Navbar bg="primary" variant="dark" fixed="bottom" className="custom-navbar">
+              <Nav className='w-100 justify-content-between'>
+
+              <Col className="col-auto">
+                <StyledBottomNavBarButton  size="md" onClick={handleShowCancelWarning}> Cancel </StyledBottomNavBarButton>
+                  <Modal show={showCancelWarning} onHide={handleCloseCancelWarning}>
+                    <Modal.Header closeButton>
+                      <Modal.Title>Discard All Changes</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <p>Are you sure you want to discard all changes? there is no way to undo this operation.</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="secondary" onClick={handleCloseCancelWarning}>
+                        Close
+                      </Button>
+                      <Button variant="primary" onClick={handleCancel}>
+                        Discard
+                      </Button>
+                    </Modal.Footer>
+                </Modal>
+                
+              </Col>
+
+              <Col className="col-auto">
+                <StyledBottomNavBarButton  size="md" onClick={handleCancel}>
+                    View
+                </StyledBottomNavBarButton>
+                <StyledBottomNavBarButton  size="md" onClick={handleCancel}>
+                    Save Draft
+                </StyledBottomNavBarButton>
+                <StyledBottomNavBarButton  size="md" onClick={handleCancel}>
+                    Submit
+                </StyledBottomNavBarButton>
+                
+              </Col>
+                
+              </Nav>
+            </Navbar>
+
         </div>
+        
   )
 }
 

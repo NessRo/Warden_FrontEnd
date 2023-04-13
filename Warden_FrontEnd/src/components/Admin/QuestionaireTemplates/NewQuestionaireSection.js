@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import NewQuestion from './NewQuestions';
 import { v4 as uuidv4 } from 'uuid';
 
+
 import Accordion from 'react-bootstrap/Accordion';
 import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 import { Button, Container, Card, Form } from 'react-bootstrap';
@@ -83,6 +84,20 @@ export default function NewQuestionSection({ onNewQuestion, onDeleteQuestion ,on
                   <Dropdown.Item eventKey="4" onClick={() => {store.dispatch(addNewQuestion(Section.id,{id:uuidv4(),
                                                                                                         type: 'selection',
                                                                                                         options:[]}))}} >Selection Field</Dropdown.Item>
+                  <Dropdown.Item eventKey="5" onClick={() => {store.dispatch(addNewQuestion(Section.id,{id:uuidv4(),
+                                                                                                        type: 'Address-Block',
+                                                                                                        address_1:'',
+                                                                                                        address_2: '',
+                                                                                                        country:'',
+                                                                                                        city:'',
+                                                                                                        state:'',
+                                                                                                        zip:'',
+                                                                                                        }))}} >Address block</Dropdown.Item>
+                  <Dropdown.Item eventKey="6" onClick={() => {store.dispatch(addNewQuestion(Section.id,{id:uuidv4(),
+                                                                                                        type: 'Contact-Block',
+                                                                                                        Name:'',
+                                                                                                        email:'',
+                                                                                                        phone_number:''}))}} >Contact Block</Dropdown.Item>
                 </DropdownButton>
                   </Card.Body>
                 </Accordion.Collapse>
@@ -91,6 +106,7 @@ export default function NewQuestionSection({ onNewQuestion, onDeleteQuestion ,on
 
             </Accordion>
           </Container>
+          
           
       ))}
     </>

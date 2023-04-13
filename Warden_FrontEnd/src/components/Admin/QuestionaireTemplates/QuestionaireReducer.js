@@ -15,14 +15,14 @@ export function questionaireReducer_(state=initialTemplateState, action){
         case 'Questionaire/remove-section':{
             
             return{...state,
-                    Sections: state.Sections.filter((t) => t.id != action.Payload.id )}
+                    Sections: state.Sections.filter((t) => t.id !== action.Payload.id )}
         }
 
         case 'Questionaire/update-section-title':{
             return {...state,
             Sections: 
             state.Sections.map(t => {
-                if (t.id == action.Payload.id) {
+                if (t.id === action.Payload.id) {
                     return {...t, title: action.Payload.title};
                 } else {
                     return t;}
@@ -38,7 +38,7 @@ export function questionaireReducer_(state=initialTemplateState, action){
             return {...state,
                 Sections: 
                 state.Sections.map(t => {
-                    if (t.id == action.Payload.id) {
+                    if (t.id === action.Payload.id) {
                         return {...t, 
                                 questions: [...t.questions,action.Payload.question_dict]};
                     } else {
@@ -49,12 +49,54 @@ export function questionaireReducer_(state=initialTemplateState, action){
         case 'Questionaire/Section/delete-question': {
             return {...state,
                     Sections: state.Sections.map(section => {
-                        if (section.id == action.Payload.id) {
+                        if (section.id === action.Payload.id) {
                             return {...section,
-                                    questions: section.questions.filter((t) => t.id != action.Payload.questionId)}
+                                    questions: section.questions.filter((t) => t.id !== action.Payload.questionId)}
                                         }
                         else { return section}
                                     })}
+        }
+
+        case 'Questionaire/Section/add-dropdown-options': {
+            return {...state,
+                Sections: state.Sections.map(section => {
+                    if (section.id === action.Payload.id) {
+                        return {...section,
+                                questions: section.questions.map(question =>{
+                                    if(question.id === action.Payload.questionId) {
+                                        const PayloadArray = action.Payload.text.split(',').map(item => item.trim());
+                                        return{...question,
+                                                options: PayloadArray}
+                                    }
+                                    else { return question}
+                                })}
+                                    }
+                    else { return section}
+                                })}
+        }
+
+        case 'Questionaire/Section/update-question-title': {
+            return {...state,
+                Sections: state.Sections.map(section => {
+                    if (section.id === action.Payload.id) {
+                        return {...section,
+                                questions: section.questions.map(question =>{
+                                    if(question.id === action.Payload.questionId) {
+                                        return{...question,
+                                                text: action.Payload.title}
+                                    }
+                                    else { return question}
+                                })}
+                                    }
+                    else { return section}
+                                })}
+        }
+
+        case 'Clear-State': {
+            return  {id:'',
+                    TemplateName:'',
+                    created:'',
+                    Sections:[]}
         }
                     
         

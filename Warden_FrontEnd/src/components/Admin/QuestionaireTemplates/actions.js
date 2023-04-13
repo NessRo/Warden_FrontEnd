@@ -71,3 +71,31 @@ export const deleteQuestion = (sectionId,questionId) => {
         },  
     }
 };
+
+export const addDropdownOptions = (sectionId,questionId,text) => {
+    return {
+        type: 'Questionaire/Section/add-dropdown-options',
+        Payload:{
+            id: sectionId,
+            questionId,
+            text
+        },  
+    }
+};
+
+export const updateQuestionTitle = (sectionId,questionId,title) => {
+    return {
+        type: 'Questionaire/Section/update-question-title',
+        Payload:{
+            id: sectionId,
+            questionId,
+            title
+        },  
+    }
+};
+
+export const clearState = () =>{
+    return{
+        type: 'Clear-State'
+    }
+}
