@@ -173,7 +173,7 @@ export default function NewQuestion ({Section}) {
                         );}
                     case 'Contact-Block':{
                         return(
-                            <Form>
+                            <Form key={question.id}> 
                                 <Row>
                                     <Col >
                                         <Form.Control id="inlineFormInputGroup" placeholder="Full Contact Name" />

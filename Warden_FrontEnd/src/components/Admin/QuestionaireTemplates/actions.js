@@ -52,6 +52,15 @@ export const updateSectionTitle = (id,title) => {
     }
 };
 
+export const updateQuestionaireTitle = (title) => {
+    return {
+        type: 'Questionaire/update-questionaire-title',
+        Payload:{
+            title,
+        },  
+    }
+};
+
 export const addNewQuestion = (sectionId,question_dict) => {
     return {
         type: 'Questionaire/Section/add-new-question',

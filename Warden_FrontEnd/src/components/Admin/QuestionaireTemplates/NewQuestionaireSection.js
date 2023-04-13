@@ -32,7 +32,7 @@ function CustomToggle({ children, eventKey }) {
 }
 
 
-export default function NewQuestionSection({ onNewQuestion, onDeleteQuestion ,onAddDropdownOption}) {
+export default function NewQuestionSection() {
 
     const Sections = useSelector(state => state.QuestionaireTemplates.Sections);
 

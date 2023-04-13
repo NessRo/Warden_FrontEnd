@@ -28,6 +28,11 @@ export function questionaireReducer_(state=initialTemplateState, action){
                     return t;}
         })}}
 
+        case 'Questionaire/update-questionaire-title':{
+            return {...state,
+                TemplateName: action.Payload.title}
+        }
+
         case 'Questionaire/set-template-name':{
             
             return{...state,

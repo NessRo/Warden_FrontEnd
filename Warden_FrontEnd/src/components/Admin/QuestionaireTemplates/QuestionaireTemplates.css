@@ -14,5 +14,11 @@
 
 .custom-navbar {
   background-color: #595c5c !important; /* your custom color */
-  color: #070000 !important; /* text color */
+  color: rgba(32,33,35,var(--tw-bg-opacity)) !important; /* text color */
 }
+
+.modal-80w {
+  width: 80%; /* Modify this value if you want a different width */
+  max-width: none !important; /* This is necessary to override the default max-width */
+}
+
