@@ -24,13 +24,32 @@ export default function NewQuestion ({Section}) {
             
             
                 switch(question.type){
-                    case 'free-text': 
+                    case 'free-text-small': 
                         {return(
                             <Form key={question.id}>
                             <Row>
                                 
                                 <Col>
-                                    <FloatingLabel  label="Type in your question or request" className="mb-3">
+                                    <FloatingLabel  label="Type in your question or request - for a small text field" className="mb-3">
+                                        <Form.Control placeholder="Type in your question or request" onChange={(e) => store.dispatch(updateQuestionTitle(Section.id,question.id, e.target.value))} />
+                                    </FloatingLabel>
+                                </Col>
+                                <Col xs="auto">
+                                    <Button bsPrefix="new-question-button" onClick={() => store.dispatch(deleteQuestion(Section.id,question.id))}>
+                                    <AiOutlineDelete />
+                                    </Button>
+                                </Col>
+                            </Row>
+                            <hr />
+                            </Form>
+                        );}
+                    case 'free-text-large': 
+                        {return(
+                            <Form key={question.id}>
+                            <Row>
+                                
+                                <Col>
+                                    <FloatingLabel  label="Type in your question or request - for a large text field" className="mb-3">
                                         <Form.Control placeholder="Type in your question or request" onChange={(e) => store.dispatch(updateQuestionTitle(Section.id,question.id, e.target.value))} />
                                     </FloatingLabel>
                                 </Col>
@@ -121,7 +140,38 @@ export default function NewQuestion ({Section}) {
                             </Row>
                             <hr />
                             </Form>
-                        );} 
+                        );}
+
+                        case 'multi-selection':
+                            {return(
+                                <Form key={question.id}>
+                                <Row>
+                                    
+                                    <Col>
+                                        <FloatingLabel  label="Multi-Selection title" className="mb-3">
+                                            <Form.Control placeholder="Multi-Selection title" onChange={(e) => store.dispatch(updateQuestionTitle(Section.id,question.id, e.target.value))} />
+                                        </FloatingLabel>
+                                    <div style={{ paddingTop: '8px' }}/>
+                                    <Container fluid="md">
+                                        <Row>
+                                            <Col >
+                                                <FloatingLabel controlId="floatingTextarea2" label="Enter all Selection options, seperated by a comma. user will be able to select multiple options">
+                                                    <Form.Control as="textarea" style={{ height: '100px' }}  placeholder="Leave options here" onChange={(e) => store.dispatch(addDropdownOptions(Section.id,question.id,e.target.value))} />
+                                                </FloatingLabel>
+                                            </Col>
+                                        </Row>
+                                    </Container>                                               
+                                    </Col>
+                                    <Col xs="auto">
+                                        <Button bsPrefix="new-question-button" onClick={() => store.dispatch(deleteQuestion(Section.id,question.id))}>
+                                        <AiOutlineDelete />
+                                        </Button>
+                                    </Col>
+                                </Row>
+                                <hr />
+                                </Form>
+                            );}
+                    
                     case 'Address-Block':
                         { return(
                             <Form key={question.id}>  

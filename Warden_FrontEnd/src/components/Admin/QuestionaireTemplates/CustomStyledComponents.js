@@ -30,3 +30,9 @@ export const StyledBottomNavBarButton = styled(Button)`
   }
 
 `;
+
+export const StyledCalendar = styled.div`
+  &.form-control {
+    width: 150px !important; /* Adjust this value according to your desired width */
+  }
+`;

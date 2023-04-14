@@ -22,3 +22,9 @@
   max-width: none !important; /* This is necessary to override the default max-width */
 }
 
+.input-group .form-control.custom-input-width {
+  width: 150px !important; /* Adjust this value according to your desired width */
+}
+
+
+
