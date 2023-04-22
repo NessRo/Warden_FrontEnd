@@ -95,9 +95,6 @@ export default function NewQuestion ({Section}) {
                         {return(
                             <Form key={question.id}>
                             <Row>
-                                {/* <Col xs="auto">
-                                    {index +1 + '.'}
-                                </Col> */}
                                 <Col>
                                     <FloatingLabel  label="Date Title" className="mb-3">
                                         <Form.Control placeholder="this is a date" onChange={(e) => store.dispatch(updateQuestionTitle(Section.id,question.id, e.target.value))}/>

@@ -22,11 +22,21 @@ export const setTemplateName = (name) => {
     }
 };
 
-export const addNewSection = (title) => {
+export const setTemplateId = () => {
+    return {
+        type: 'Questionaire/set-template-id',
+        Payload:{
+            id:uuidv4(),
+        },  
+    }
+};
+
+export const addNewSection = (title,template_id) => {
     return {
         type: 'Questionaire/add-section',
         Payload:{
             id: uuidv4(),
+            template_id,
             title,
             questions: [],
         },  

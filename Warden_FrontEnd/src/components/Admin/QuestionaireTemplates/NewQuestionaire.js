@@ -74,7 +74,7 @@ const NewQuestionaire = () => {
             <div style={{ height: "25px" }}/>
             <Container style={{ paddingBottom: "150px" }}>
                 <div style={{ height: "25px" }}/>
-                <Button onClick={() => {store.dispatch(addNewSection('')); console.log(store.getState())}}>New Section</Button>
+                <Button onClick={() => {store.dispatch(addNewSection('',template.id)); console.log(store.getState())}}>New Section</Button>
             </Container>
 
             <Navbar bg="primary" variant="dark" fixed="bottom" className="custom-navbar">

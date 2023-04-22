@@ -1,5 +1,7 @@
+import { v4 as uuidv4 } from 'uuid';
 
-const initialTemplateState = {id:'',
+
+const initialTemplateState = {id:uuidv4(),
                                 TemplateName:'',
                                 created:'',
                                 Sections:[]}
@@ -38,6 +40,12 @@ export function questionaireReducer_(state=initialTemplateState, action){
             return{...state,
                     TemplateName:  action.Payload.name}
         }
+
+        case 'Questionaire/set-template-id':{
+            
+            return{...state,
+                    id:  action.Payload.id}
+        }
     
         case 'Questionaire/Section/add-new-question':{
             return {...state,
@@ -71,7 +79,8 @@ export function questionaireReducer_(state=initialTemplateState, action){
                                     if(question.id === action.Payload.questionId) {
                                         const PayloadArray = action.Payload.text.split(',').map(item => item.trim());
                                         return{...question,
-                                                options: PayloadArray}
+                                                content: {...question.content,
+                                                options:PayloadArray}}
                                     }
                                     else { return question}
                                 })}
@@ -88,7 +97,8 @@ export function questionaireReducer_(state=initialTemplateState, action){
                                 questions: section.questions.map(question =>{
                                     if(question.id === action.Payload.questionId) {
                                         return{...question,
-                                                text: action.Payload.title}
+                                            content: {...question.content,
+                                                text:action.Payload.title}}
                                     }
                                     else { return question}
                                 })}

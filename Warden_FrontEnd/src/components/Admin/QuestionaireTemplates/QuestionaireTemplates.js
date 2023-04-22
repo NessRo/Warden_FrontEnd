@@ -5,6 +5,8 @@ import {nanoid} from 'nanoid';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from "react-router-dom";
+import { setTemplateId } from "./actions";
+import { store } from '../../../store';
 
 
 const QuestionaireTemplates = () => {
@@ -18,7 +20,7 @@ const QuestionaireTemplates = () => {
      
     
     <>
-    <Button variant="outline-primary" id="Create-new-questionaire-button" onClick={handleOnClick}>Create New</Button>{' '}
+    <Button variant="outline-primary" id="Create-new-questionaire-button" onClick={() => {handleOnClick(); store.dispatch(setTemplateId())}}>Create New</Button>{' '}
 
    
     <Table responsive>

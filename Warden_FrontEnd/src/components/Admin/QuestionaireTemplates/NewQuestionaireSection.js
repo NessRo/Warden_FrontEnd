@@ -38,7 +38,7 @@ export default function NewQuestionSection() {
 
     return(
     <>
-          {Sections.map((Section) => (
+          {Sections.map((Section, index) => (
           
           <Container className="mt-4 col-md-12" key={Section.id}>
             <Accordion defaultActiveKey="0">
@@ -72,38 +72,47 @@ export default function NewQuestionSection() {
                   size='sm'
                 >
                   <Dropdown.Item eventKey="1" onClick={() => {store.dispatch(addNewQuestion(Section.id,{id:uuidv4(),
+                                                                                                        section_id:Section.id,
                                                                                                         type: 'free-text-small',
-                                                                                                        text: ''}))}} >Freetext Field - Small</Dropdown.Item>
+                                                                                                        content:{text:''}
+                                                                                                        }))}} >Freetext Field - Small</Dropdown.Item>
                   <Dropdown.Item eventKey="2" onClick={() => {store.dispatch(addNewQuestion(Section.id,{id:uuidv4(),
+                                                                                                        section_id:Section.id,
                                                                                                         type: 'free-text-large',
-                                                                                                        text: ''}))}} >Freetext Field - Large</Dropdown.Item>
+                                                                                                        content:{text:''}}))}} >Freetext Field - Large</Dropdown.Item>
                   <Dropdown.Item eventKey="3" onClick={() => {store.dispatch(addNewQuestion(Section.id,{id:uuidv4(),
+                                                                                                        section_id:Section.id,
                                                                                                         type: 'drop-down',
-                                                                                                        text:'',
-                                                                                                        options:[]}))}} >Dropdown Field</Dropdown.Item>
+                                                                                                        content:{text:'',options:[]}
+                                                                                                        }))}} >Dropdown Field</Dropdown.Item>
                   <Dropdown.Item eventKey="4" onClick={() => {store.dispatch(addNewQuestion(Section.id,{id:uuidv4(),
+                                                                                                        section_id:Section.id,
                                                                                                         type: 'date-field',
-                                                                                                        date: ''}))}} >Date Field</Dropdown.Item>
+                                                                                                        content:{date: ''}}))}} >Date Field</Dropdown.Item>
                   <Dropdown.Item eventKey="5" onClick={() => {store.dispatch(addNewQuestion(Section.id,{id:uuidv4(),
+                                                                                                        section_id:Section.id,
                                                                                                         type: 'selection',
-                                                                                                        options:[]}))}} >Selection Field</Dropdown.Item>
+                                                                                                        content:{options:[]}}))}} >Selection Field</Dropdown.Item>
                   <Dropdown.Item eventKey="6" onClick={() => {store.dispatch(addNewQuestion(Section.id,{id:uuidv4(),
+                                                                                                        section_id:Section.id,
                                                                                                         type: 'multi-selection',
-                                                                                                        options:[]}))}} >multi-Selection Field</Dropdown.Item>
+                                                                                                        content:{options:[]}}))}} >multi-Selection Field</Dropdown.Item>
                   <Dropdown.Item eventKey="7" onClick={() => {store.dispatch(addNewQuestion(Section.id,{id:uuidv4(),
+                                                                                                        section_id:Section.id,
                                                                                                         type: 'Address-Block',
-                                                                                                        address_1:'',
-                                                                                                        address_2: '',
-                                                                                                        country:'',
-                                                                                                        city:'',
-                                                                                                        state:'',
-                                                                                                        zip:'',
+                                                                                                        content:{address_1:'',
+                                                                                                                address_2: '',
+                                                                                                                country:'',
+                                                                                                                city:'',
+                                                                                                                state:'',
+                                                                                                                zip:'',}
                                                                                                         }))}} >Address block</Dropdown.Item>
                   <Dropdown.Item eventKey="8" onClick={() => {store.dispatch(addNewQuestion(Section.id,{id:uuidv4(),
+                                                                                                        section_id:Section.id,
                                                                                                         type: 'Contact-Block',
-                                                                                                        Name:'',
-                                                                                                        email:'',
-                                                                                                        phone_number:''}))}} >Contact Block</Dropdown.Item>
+                                                                                                        content:{Name:'',
+                                                                                                                email:'',
+                                                                                                                phone_number:''}}))}} >Contact Block</Dropdown.Item>
                 </DropdownButton>
                   </Card.Body>
                 </Accordion.Collapse>

@@ -52,7 +52,7 @@ export default function ViewQuestionaire () {
                         case 'free-text-small': {
                             return(
                                 <Form id={question.id}>
-                                        <Form.Label>{question.text}</Form.Label>
+                                        <Form.Label>{question.content.text}</Form.Label>
                                         
                                         <Form.Control  rows={3} />
                                     <br />
@@ -63,7 +63,7 @@ export default function ViewQuestionaire () {
                         case 'free-text-large': {
                             return(
                                 <Form id={question.id}>
-                                        <Form.Label>{question.text}</Form.Label>
+                                        <Form.Label>{question.content.text}</Form.Label>
                                         
                                         <Form.Control as='textarea' rows={3} />
                                     <br />
@@ -75,10 +75,10 @@ export default function ViewQuestionaire () {
                             return(
                                 <Form id={question.id}>
                                     <Form.Group>
-                                        <Form.Label>{question.text}</Form.Label>
+                                        <Form.Label>{question.content.text}</Form.Label>
                                         <Form.Select>
                                             <option  disabled selected>Select an option</option>
-                                            {question.options.map((option, index) => (
+                                            {question.content.options.map((option, index) => (
                                                 <option value={option.index +1 }>{option}</option>
                                             ))}
                                             
@@ -93,8 +93,8 @@ export default function ViewQuestionaire () {
                             return(
                                 <Form id={question.id}>
                                     <Form.Group>
-                                        <Form.Label>{question.text}</Form.Label>
-                                        {question.options.map((option, index) => (
+                                        <Form.Label>{question.content.text}</Form.Label>
+                                        {question.content.options.map((option, index) => (
                                                 <Form.Check
                                                 type="radio"
                                                 name="radioGroup"
@@ -113,8 +113,8 @@ export default function ViewQuestionaire () {
                             return(
                                 <Form id={question.id}>
                                     <Form.Group>
-                                        <Form.Label>{question.text}</Form.Label>
-                                        {question.options.map((option, index) => (
+                                        <Form.Label>{question.content.text}</Form.Label>
+                                        {question.content.options.map((option, index) => (
                                                 <Form.Check
                                                 type="checkbox"
                                                 id={option.index}  
@@ -132,7 +132,7 @@ export default function ViewQuestionaire () {
                             return(
                                 <Form  id={question.id}>
                                     <Form.Group controlId="datePicker">
-                                        <Form.Label>{question.text}</Form.Label>
+                                        <Form.Label>{question.content.text}</Form.Label>
                                         <br />
                                             <DatePicker  
                                             
