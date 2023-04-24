@@ -113,6 +113,16 @@ export const updateQuestionTitle = (sectionId,questionId,title) => {
     }
 };
 
+export const updateQuestionRequirement = (sectionId,questionId) => {
+    return {
+        type: 'Questionaire/Section/update-question-requirement',
+        Payload:{
+            id: sectionId,
+            questionId,
+        },  
+    }
+};
+
 export const clearState = () =>{
     return{
         type: 'Clear-State'

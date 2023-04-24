@@ -1,6 +1,6 @@
 import React from 'react';
-import { deleteQuestion, addDropdownOptions, updateQuestionTitle } from './actions';
-
+import { deleteQuestion, addDropdownOptions, updateQuestionTitle, updateQuestionRequirement } from './actions';
+import RequiredToggle from './RequiredToggle';
 import { store } from '../../../store';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
@@ -40,6 +40,11 @@ export default function NewQuestion ({Section}) {
                                     </Button>
                                 </Col>
                             </Row>
+                            <Row>
+                                <Col>
+                                    <RequiredToggle Section={Section} question={question} />
+                                </Col>
+                            </Row>
                             <hr />
                             </Form>
                         );}
@@ -57,6 +62,11 @@ export default function NewQuestion ({Section}) {
                                     <Button bsPrefix="new-question-button" onClick={() => store.dispatch(deleteQuestion(Section.id,question.id))}>
                                     <AiOutlineDelete />
                                     </Button>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col>
+                                    <RequiredToggle Section={Section} question={question} />
                                 </Col>
                             </Row>
                             <hr />
@@ -88,6 +98,11 @@ export default function NewQuestion ({Section}) {
                                     </Button>
                                 </Col>
                             </Row>
+                            <Row>
+                                <Col>
+                                    <RequiredToggle Section={Section} question={question} />
+                                </Col>
+                            </Row>
                             <hr />
                             </Form>
                         );}
@@ -105,6 +120,13 @@ export default function NewQuestion ({Section}) {
                                     <AiOutlineDelete />
                                     </Button>
                                 </Col>
+                            </Row>
+                            <Row />
+                            <Row>
+                                <Col>
+                                    <RequiredToggle Section={Section} question={question} />
+                                </Col>
+                                
                             </Row>
                             <hr />
                             </Form>
@@ -135,6 +157,12 @@ export default function NewQuestion ({Section}) {
                                     </Button>
                                 </Col>
                             </Row>
+                            <Row />
+                            <Row>
+                                <Col>
+                                    <RequiredToggle Section={Section} question={question} />
+                                </Col>
+                            </Row>
                             <hr />
                             </Form>
                         );}
@@ -163,6 +191,12 @@ export default function NewQuestion ({Section}) {
                                         <Button bsPrefix="new-question-button" onClick={() => store.dispatch(deleteQuestion(Section.id,question.id))}>
                                         <AiOutlineDelete />
                                         </Button>
+                                    </Col>
+                                </Row>
+                                <Row />
+                                <Row>
+                                    <Col>
+                                        <RequiredToggle Section={Section} question={question} />
                                     </Col>
                                 </Row>
                                 <hr />
@@ -215,6 +249,12 @@ export default function NewQuestion ({Section}) {
                                     <Form.Control />
                                     </Form.Group>
                                 </Row>
+                                <Row />
+                                <Row>
+                                    <Col>
+                                        <RequiredToggle Section={Section} question={question} />
+                                    </Col>
+                                </Row>
                                 <hr />
                             </Form>
                         );}
@@ -235,6 +275,11 @@ export default function NewQuestion ({Section}) {
                                         <Button bsPrefix="new-question-button" onClick={() => store.dispatch(deleteQuestion(Section.id,question.id))}>
                                         <AiOutlineDelete />
                                         </Button>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <RequiredToggle Section={Section} question={question} />
                                     </Col>
                                 </Row>
                                 <hr />

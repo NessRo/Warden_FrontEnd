@@ -107,6 +107,23 @@ export function questionaireReducer_(state=initialTemplateState, action){
                                 })}
         }
 
+        case 'Questionaire/Section/update-question-requirement':{
+            return {...state,
+                Sections: state.Sections.map(section => {
+                    if (section.id === action.Payload.id) {
+                        return {...section,
+                                questions: section.questions.map(question =>{
+                                    if(question.id === action.Payload.questionId) {
+                                        return{...question,
+                                            required: !question.required}
+                                    }
+                                    else { return question}
+                                })}
+                                    }
+                    else { return section}
+                                })}
+        }
+
         case 'Clear-State': {
             return  {id:'',
                     TemplateName:'',

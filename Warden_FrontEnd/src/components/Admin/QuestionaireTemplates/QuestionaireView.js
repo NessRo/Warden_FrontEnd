@@ -52,9 +52,12 @@ export default function ViewQuestionaire () {
                         case 'free-text-small': {
                             return(
                                 <Form id={question.id}>
-                                        <Form.Label>{question.content.text}</Form.Label>
+                                        <Form.Label>
+                                            {question.content.text}
+                                            {question.required && <span style={{color: 'red'}}> *</span>}
+                                        </Form.Label>
                                         
-                                        <Form.Control  rows={3} />
+                                        <Form.Control  rows={3} required={question.required}/>
                                     <br />
                                 </Form>
                             );
@@ -63,9 +66,12 @@ export default function ViewQuestionaire () {
                         case 'free-text-large': {
                             return(
                                 <Form id={question.id}>
-                                        <Form.Label>{question.content.text}</Form.Label>
+                                        <Form.Label>
+                                            {question.content.text}
+                                            {question.required && <span style={{color: 'red'}}> *</span>}
+                                        </Form.Label>
                                         
-                                        <Form.Control as='textarea' rows={3} />
+                                        <Form.Control as='textarea' rows={3} required={question.required}/>
                                     <br />
                                 </Form>
                             );
@@ -75,8 +81,11 @@ export default function ViewQuestionaire () {
                             return(
                                 <Form id={question.id}>
                                     <Form.Group>
-                                        <Form.Label>{question.content.text}</Form.Label>
-                                        <Form.Select>
+                                        <Form.Label>
+                                            {question.content.text}
+                                            {question.required && <span style={{color: 'red'}}> *</span>}
+                                        </Form.Label>
+                                        <Form.Select required={question.required}>
                                             <option  disabled selected>Select an option</option>
                                             {question.content.options.map((option, index) => (
                                                 <option value={option.index +1 }>{option}</option>
@@ -93,7 +102,10 @@ export default function ViewQuestionaire () {
                             return(
                                 <Form id={question.id}>
                                     <Form.Group>
-                                        <Form.Label>{question.content.text}</Form.Label>
+                                        <Form.Label required={question.required}>
+                                            {question.content.text}
+                                            {question.required && <span style={{color: 'red'}}> *</span>}
+                                        </Form.Label>
                                         {question.content.options.map((option, index) => (
                                                 <Form.Check
                                                 type="radio"
@@ -113,7 +125,10 @@ export default function ViewQuestionaire () {
                             return(
                                 <Form id={question.id}>
                                     <Form.Group>
-                                        <Form.Label>{question.content.text}</Form.Label>
+                                        <Form.Label required={question.required}>
+                                            {question.content.text}
+                                            {question.required && <span style={{color: 'red'}}> *</span>}
+                                        </Form.Label>
                                         {question.content.options.map((option, index) => (
                                                 <Form.Check
                                                 type="checkbox"
@@ -132,7 +147,10 @@ export default function ViewQuestionaire () {
                             return(
                                 <Form  id={question.id}>
                                     <Form.Group controlId="datePicker">
-                                        <Form.Label>{question.content.text}</Form.Label>
+                                        <Form.Label required={question.required}>
+                                            {question.content.text}
+                                            {question.required && <span style={{color: 'red'}}> *</span>}
+                                        </Form.Label>
                                         <br />
                                             <DatePicker  
                                             
@@ -149,29 +167,43 @@ export default function ViewQuestionaire () {
                                 <Row>
                                     
                                     <Col  >
-                                        <Form.Label>Address 1</Form.Label>
-                                        <Form.Control placeholder="1234 Main St" />
+                                        <Form.Label>
+                                            Address 1
+                                            {question.required && <span style={{color: 'red'}}> *</span>}
+                                        </Form.Label>
+                                        <Form.Control placeholder="1234 Main St" required={question.required} />
                                     </Col>
 
                                 </Row>
                                 <Form.Group className="mb-3" controlId="formGridAddress2">
-                                    <Form.Label>Address 2</Form.Label>
-                                    <Form.Control placeholder="Apartment, studio, or floor" />
+                                        <Form.Label>
+                                            Address 2
+                                            {question.required && <span style={{color: 'red'}}> *</span>}
+                                        </Form.Label>
+                                    <Form.Control placeholder="Apartment, studio, or floor" required={question.required}/>
                                 </Form.Group>
 
                                 <Row className="mb-3">
                                     <Form.Group as={Col} controlId="formGridCity">
-                                    <Form.Label>Country</Form.Label>
-                                    <Form.Control />
+                                        <Form.Label>
+                                            Country
+                                            {question.required && <span style={{color: 'red'}}> *</span>}
+                                        </Form.Label>
+                                    <Form.Control required={question.required} />
                                     </Form.Group>
 
                                     <Form.Group as={Col} controlId="formGridCity">
-                                    <Form.Label>City</Form.Label>
-                                    <Form.Control />
+                                        <Form.Label>
+                                            City
+                                            {question.required && <span style={{color: 'red'}}> *</span>}
+                                        </Form.Label>
+                                    <Form.Control required={question.required}/>
                                     </Form.Group>
 
                                     <Form.Group as={Col} controlId="formGridState">
-                                    <Form.Label>State</Form.Label>
+                                    <Form.Label>
+                                        State
+                                    </Form.Label>
                                     <Form.Select defaultValue="Choose...">
                                         <option>Choose...</option>
                                         <option>TX</option>
@@ -180,8 +212,11 @@ export default function ViewQuestionaire () {
                                     </Form.Group>
 
                                     <Form.Group as={Col} controlId="formGridZip">
-                                    <Form.Label>Zip</Form.Label>
-                                    <Form.Control />
+                                        <Form.Label>
+                                            Zip
+                                            {question.required && <span style={{color: 'red'}}> *</span>}
+                                        </Form.Label>
+                                    <Form.Control required={question.required}/>
                                     </Form.Group>
                                 </Row>
                                 <br />
@@ -194,13 +229,16 @@ export default function ViewQuestionaire () {
                                 <Form key={question.id}> 
                                 <Row>
                                     <Col >
-                                        <Form.Control id="inlineFormInputGroup" placeholder="Full Contact Name" />
+                                        <Form.Control id="inlineFormInputGroup" placeholder="Full Contact Name" required={question.required}/>
+                                        
                                     </Col>
                                     <Col >
-                                        <Form.Control id="inlineFormInputGroup" placeholder="Contact Email" />
+                                        <Form.Control id="inlineFormInputGroup" placeholder="Contact Email" required={question.required}/>
+                                     
                                     </Col>
                                     <Col >
-                                        <Form.Control id="inlineFormInputGroup" placeholder="Contact Number" />
+                                        <Form.Control id="inlineFormInputGroup" placeholder="Contact Number" required={question.required}/>
+                                       
                                     </Col>
                                 </Row>
                                 <hr />
