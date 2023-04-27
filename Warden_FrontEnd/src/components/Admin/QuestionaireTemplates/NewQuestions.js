@@ -1,6 +1,6 @@
 import React from 'react';
-import { deleteQuestion, addDropdownOptions, updateQuestionTitle, updateQuestionRequirement } from './actions';
-import RequiredToggle from './RequiredToggle';
+import { deleteQuestion, addDropdownOptions, updateQuestionTitle } from './actions';
+import RequiredToggle from './Components/RequiredToggle';
 import { store } from '../../../store';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
@@ -9,7 +9,11 @@ import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 import { Button } from 'react-bootstrap';
 import { AiOutlineDelete } from "react-icons/ai";
+
 import { v4 as uuidv4 } from 'uuid';
+import ConditionalLogicToggle from './Components/ConditionalLogicToggle';
+
+import ConditionLogicFlow from './Components/ConditionLogicFlow';
 
 
 
@@ -90,17 +94,30 @@ export default function NewQuestion ({Section}) {
                                             </FloatingLabel>
                                         </Col>
                                     </Row>
+                                    <div style={{ paddingTop: '8px' }}/>
+                                    <Row>
+                                        <Col>
+                                            <RequiredToggle Section={Section} question={question} />
+                                        </Col>
+                                        <Col>
+                                            <ConditionalLogicToggle Section={Section} question={question} />
+                                        </Col>
+                                     </Row >
+                                     {question.logical === true ?(
+                                        <>
+                                        <ConditionLogicFlow question={question}/>
+                                        
+                                        
+                                        </>
+                                     ): null}
+                                        <div style={{ paddingTop: '8px' }}/>
+                                        
                                 </Container>                                               
                                 </Col>
                                 <Col xs="auto">
                                     <Button bsPrefix="new-question-button" onClick={() => store.dispatch(deleteQuestion(Section.id,question.id))}>
                                     <AiOutlineDelete />
                                     </Button>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col>
-                                    <RequiredToggle Section={Section} question={question} />
                                 </Col>
                             </Row>
                             <hr />
@@ -149,6 +166,15 @@ export default function NewQuestion ({Section}) {
                                             </FloatingLabel>
                                         </Col>
                                     </Row>
+                                    <div style={{ paddingTop: '8px' }}/>
+                                    <Row>
+                                        <Col>
+                                            <RequiredToggle Section={Section} question={question} />
+                                        </Col>
+                                        <Col>
+                                            <ConditionalLogicToggle Section={Section} question={question} />
+                                        </Col>
+                                     </Row>
                                 </Container>                                               
                                 </Col>
                                 <Col xs="auto">
@@ -158,11 +184,6 @@ export default function NewQuestion ({Section}) {
                                 </Col>
                             </Row>
                             <Row />
-                            <Row>
-                                <Col>
-                                    <RequiredToggle Section={Section} question={question} />
-                                </Col>
-                            </Row>
                             <hr />
                             </Form>
                         );}
@@ -185,6 +206,15 @@ export default function NewQuestion ({Section}) {
                                                 </FloatingLabel>
                                             </Col>
                                         </Row>
+                                        <div style={{ paddingTop: '8px' }}/>
+                                        <Row>
+                                            <Col>
+                                                <RequiredToggle Section={Section} question={question} />
+                                            </Col>
+                                            <Col>
+                                                <ConditionalLogicToggle Section={Section} question={question} />
+                                            </Col>
+                                        </Row>
                                     </Container>                                               
                                     </Col>
                                     <Col xs="auto">
@@ -193,12 +223,7 @@ export default function NewQuestion ({Section}) {
                                         </Button>
                                     </Col>
                                 </Row>
-                                <Row />
-                                <Row>
-                                    <Col>
-                                        <RequiredToggle Section={Section} question={question} />
-                                    </Col>
-                                </Row>
+                                
                                 <hr />
                                 </Form>
                             );}

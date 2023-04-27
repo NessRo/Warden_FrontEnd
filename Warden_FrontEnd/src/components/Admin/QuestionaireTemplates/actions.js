@@ -123,6 +123,16 @@ export const updateQuestionRequirement = (sectionId,questionId) => {
     }
 };
 
+export const updateQuestionLogic = (sectionId,questionId) => {
+    return {
+        type: 'Questionaire/Section/update-question-logic',
+        Payload:{
+            id: sectionId,
+            questionId,
+        },  
+    }
+};
+
 export const clearState = () =>{
     return{
         type: 'Clear-State'
