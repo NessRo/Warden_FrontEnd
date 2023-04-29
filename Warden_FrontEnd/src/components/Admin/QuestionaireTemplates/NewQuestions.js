@@ -1,5 +1,6 @@
 import React from 'react';
 import { deleteQuestion, addDropdownOptions, updateQuestionTitle } from './actions';
+import NewSubQuestion from './NewSubQuestion';
 import RequiredToggle from './Components/RequiredToggle';
 import { store } from '../../../store';
 import Col from 'react-bootstrap/Col';
@@ -105,8 +106,9 @@ export default function NewQuestion ({Section}) {
                                      </Row >
                                      {question.logical === true ?(
                                         <>
-                                        <ConditionLogicFlow question={question}/>
+                                        <ConditionLogicFlow question={question} section={Section}/>
                                         
+                                        <NewSubQuestion Question={question} Section={Section}/>
                                         
                                         </>
                                      ): null}

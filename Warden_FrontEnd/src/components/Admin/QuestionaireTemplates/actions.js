@@ -102,6 +102,39 @@ export const addDropdownOptions = (sectionId,questionId,text) => {
     }
 };
 
+export const addConditionType = (sectionId,questionId,text) => {
+    return {
+        type: 'Questionaire/Section/add-condition-type',
+        Payload:{
+            id: sectionId,
+            questionId,
+            text
+        },  
+    }
+};
+
+export const addConditionValue = (sectionId,questionId,text) => {
+    return {
+        type: 'Questionaire/Section/add-condition-value',
+        Payload:{
+            id: sectionId,
+            questionId,
+            text
+        },  
+    }
+};
+
+export const addConditionSubQuestion = (sectionId,questionId,question) => {
+    return {
+        type: 'Questionaire/Section/add-condition-sub-question',
+        Payload:{
+            id: sectionId,
+            questionId,
+            question
+        },  
+    }
+};
+
 export const updateQuestionTitle = (sectionId,questionId,title) => {
     return {
         type: 'Questionaire/Section/update-question-title',
