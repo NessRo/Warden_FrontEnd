@@ -1,5 +1,6 @@
 import React from 'react';
 import { deleteQuestion, addDropdownOptions, updateQuestionTitle } from './actions';
+import { QuestionLine } from '../../../SVGs/Lines';
 import NewSubQuestion from './NewSubQuestion';
 import RequiredToggle from './Components/RequiredToggle';
 import { store } from '../../../store';
@@ -32,6 +33,7 @@ export default function NewQuestion ({Section}) {
                     case 'free-text-small': 
                         {return(
                             <Form key={question.id}>
+                                 <QuestionLine index={index} />
                             <Row>
                                 
                                 <Col>
@@ -50,12 +52,14 @@ export default function NewQuestion ({Section}) {
                                     <RequiredToggle Section={Section} question={question} />
                                 </Col>
                             </Row>
-                            <hr />
+                            <br />
+
                             </Form>
                         );}
                     case 'free-text-large': 
                         {return(
                             <Form key={question.id}>
+                                 <QuestionLine index={index} />
                             <Row>
                                 
                                 <Col>
@@ -74,12 +78,17 @@ export default function NewQuestion ({Section}) {
                                     <RequiredToggle Section={Section} question={question} />
                                 </Col>
                             </Row>
-                            <hr />
+                            <br />
+
                             </Form>
                         );}
                     case 'drop-down':
                         {return(
+                            
                             <Form key={question.id}>
+                            
+                            <QuestionLine index={index} />
+
                             <Row>
                                 
                                 <Col>
@@ -108,7 +117,10 @@ export default function NewQuestion ({Section}) {
                                         <>
                                         <ConditionLogicFlow question={question} section={Section}/>
                                         
-                                        <NewSubQuestion Question={question} Section={Section}/>
+                                        <Container fluid="md">
+                                            <NewSubQuestion Question={question} Section={Section}/>
+                                        </Container>
+                                        
                                         
                                         </>
                                      ): null}
@@ -122,12 +134,14 @@ export default function NewQuestion ({Section}) {
                                     </Button>
                                 </Col>
                             </Row>
-                            <hr />
+                            <br />
+
                             </Form>
                         );}
                     case 'date-field':
                         {return(
                             <Form key={question.id}>
+                                 <QuestionLine index={index} />
                             <Row>
                                 <Col>
                                     <FloatingLabel  label="Date Title" className="mb-3">
@@ -147,12 +161,13 @@ export default function NewQuestion ({Section}) {
                                 </Col>
                                 
                             </Row>
-                            <hr />
+                            <br />
                             </Form>
                         );}
                     case 'selection':
                         {return(
                             <Form key={question.id}>
+                                 <QuestionLine index={index} />
                             <Row>
                                 
                                 <Col>
@@ -186,13 +201,15 @@ export default function NewQuestion ({Section}) {
                                 </Col>
                             </Row>
                             <Row />
-                            <hr />
+                            <br />
+
                             </Form>
                         );}
 
                         case 'multi-selection':
                             {return(
                                 <Form key={question.id}>
+                                     <QuestionLine index={index} />
                                 <Row>
                                     
                                     <Col>
@@ -226,13 +243,15 @@ export default function NewQuestion ({Section}) {
                                     </Col>
                                 </Row>
                                 
-                                <hr />
+                                <br />
+
                                 </Form>
                             );}
                     
                     case 'Address-Block':
                         { return(
                             <Form key={question.id}>  
+                                    <QuestionLine index={index} />
                                 <Row>
                                     
                                     <Col  >
@@ -282,12 +301,14 @@ export default function NewQuestion ({Section}) {
                                         <RequiredToggle Section={Section} question={question} />
                                     </Col>
                                 </Row>
-                                <hr />
+                                <br />
+
                             </Form>
                         );}
                     case 'Contact-Block':{
                         return(
                             <Form key={question.id}> 
+                                <QuestionLine index={index} />
                                 <Row>
                                     <Col >
                                         <Form.Control id="inlineFormInputGroup" placeholder="Full Contact Name" />
@@ -309,7 +330,8 @@ export default function NewQuestion ({Section}) {
                                         <RequiredToggle Section={Section} question={question} />
                                     </Col>
                                 </Row>
-                                <hr />
+                                <br />
+
                             </Form>
                         )
 

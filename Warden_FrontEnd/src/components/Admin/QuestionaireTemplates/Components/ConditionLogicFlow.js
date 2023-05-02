@@ -1,4 +1,4 @@
-import ConnectorLines from "../../../../SVGs/Lines";
+import {ConnectorLines} from "../../../../SVGs/Lines";
 import { store } from "../../../../store";
 import { addConditionType, addConditionValue } from "../actions";
 import { GiLogicGateNand } from "react-icons/gi";
@@ -20,7 +20,7 @@ export default function ConditionLogicFlow ({question,section}) {
                 style={{ strokeWidth: '10px', stroke: 'black', fill: 'none' }}
                 />
                 <ConnectorLines />
-                <span style={{ marginRight: '8px' }}>IF {question.type}</span>
+                <span style={{ marginRight: '8px' }}>IF Selction</span>
                 
                
                     <Form.Group>

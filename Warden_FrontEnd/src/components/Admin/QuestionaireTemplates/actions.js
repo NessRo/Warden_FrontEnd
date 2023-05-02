@@ -102,6 +102,17 @@ export const addDropdownOptions = (sectionId,questionId,text) => {
     }
 };
 
+export const addSubQuestionDropdownOptions = (sectionId,questionId,text) => {
+    return {
+        type: 'Questionaire/Section/add-sub-question-dropdown-options',
+        Payload:{
+            id: sectionId,
+            questionId,
+            text
+        },  
+    }
+};
+
 export const addConditionType = (sectionId,questionId,text) => {
     return {
         type: 'Questionaire/Section/add-condition-type',
@@ -131,6 +142,17 @@ export const addConditionSubQuestion = (sectionId,questionId,question) => {
             id: sectionId,
             questionId,
             question
+        },  
+    }
+};
+
+export const updateConditionSubQuestionTitle = (sectionId,questionId,text) => {
+    return {
+        type: 'Questionaire/Section/update-condition-sub-question-title',
+        Payload:{
+            id: sectionId,
+            questionId,
+            text
         },  
     }
 };
