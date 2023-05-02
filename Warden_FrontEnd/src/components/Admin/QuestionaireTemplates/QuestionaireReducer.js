@@ -89,6 +89,60 @@ export function questionaireReducer_(state=initialTemplateState, action){
                                 })}
         }
 
+        case 'Questionaire/Section/add-condition-type': {
+            return {...state,
+                Sections: state.Sections.map(section => {
+                    if (section.id === action.Payload.id) {
+                        return {...section,
+                                questions: section.questions.map(question =>{
+                                    if(question.id === action.Payload.questionId) {
+                                        return{...question,
+                                                conditional_question: {...question.conditional_question,
+                                                condition_type:action.Payload.text}}
+                                    }
+                                    else { return question}
+                                })}
+                                    }
+                    else { return section}
+                                })}
+        }
+
+        case 'Questionaire/Section/add-condition-value': {
+            return {...state,
+                Sections: state.Sections.map(section => {
+                    if (section.id === action.Payload.id) {
+                        return {...section,
+                                questions: section.questions.map(question =>{
+                                    if(question.id === action.Payload.questionId) {
+                                        return{...question,
+                                                conditional_question: {...question.conditional_question,
+                                                condition_value:action.Payload.text}}
+                                    }
+                                    else { return question}
+                                })}
+                                    }
+                    else { return section}
+                                })}
+        }
+
+        case 'Questionaire/Section/add-condition-sub-question': {
+            return {...state,
+                Sections: state.Sections.map(section => {
+                    if (section.id === action.Payload.id) {
+                        return {...section,
+                                questions: section.questions.map(question =>{
+                                    if(question.id === action.Payload.questionId) {
+                                        return{...question,
+                                                conditional_question: {...question.conditional_question,
+                                                condition_sub_question:action.Payload.question}}
+                                    }
+                                    else { return question}
+                                })}
+                                    }
+                    else { return section}
+                                })}
+        }
+
         case 'Questionaire/Section/update-question-title': {
             return {...state,
                 Sections: state.Sections.map(section => {

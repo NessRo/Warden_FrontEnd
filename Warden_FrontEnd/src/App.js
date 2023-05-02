@@ -7,7 +7,7 @@ import Home from './pages/home';
 import OnBoarding from './pages/Onboarding';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import QuestionaireTemplates from './components/Admin/QuestionaireTemplates/QuestionaireTemplates';
-import NavBar from './components/NavBar/NavBar';
+import NavBar from './components/NavBar/Navbar';
 import NewQuestionaire from './components/Admin/QuestionaireTemplates/NewQuestionaire';
 
 

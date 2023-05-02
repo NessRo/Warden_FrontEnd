@@ -2,7 +2,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import { v4 as uuidv4 } from 'uuid';
 import { store } from '../../../../store';
-import { addNewQuestion } from '../actions';
+import { addNewQuestion, addConditionSubQuestion } from '../actions';
 
 
 export  function NewQuestionButton({Section}){
@@ -49,7 +49,9 @@ export  function NewQuestionButton({Section}){
                                                                                                         required: false,
                                                                                                         logical:false,
                                                                                                         type: 'drop-down',
-                                                                                                        conditional_question:{},
+                                                                                                        conditional_question:{condition_type:'',
+                                                                                                                              condition_value:'',
+                                                                                                                              condition_sub_question:{}},
                                                                                                         content:{text:'',options:[]}
                                                                                                         }))}} >Dropdown Field</Dropdown.Item>
                   <Dropdown.Item eventKey="5" onClick={() => {store.dispatch(addNewQuestion(Section.id,{id:uuidv4(),
@@ -57,13 +59,17 @@ export  function NewQuestionButton({Section}){
                                                                                                         required: false,
                                                                                                         logical:false,
                                                                                                         type: 'selection',
-                                                                                                        conditional_question:{},
+                                                                                                        conditional_question:{condition_type:'',
+                                                                                                                              condition_value:'',
+                                                                                                                              condition_sub_question:{}},
                                                                                                         content:{options:[]}}))}} >Selection Field</Dropdown.Item>
                   <Dropdown.Item eventKey="6" onClick={() => {store.dispatch(addNewQuestion(Section.id,{id:uuidv4(),
                                                                                                         section_id:Section.id,
                                                                                                         required: false,
                                                                                                         logical:false,
-                                                                                                        conditional_question:{},
+                                                                                                        conditional_question:{condition_type:'',
+                                                                                                                              condition_value:'',
+                                                                                                                              condition_sub_question:{}},
                                                                                                         type: 'multi-selection',
                                                                                                         content:{options:[]}}))}} >multi-Selection Field</Dropdown.Item>
 
@@ -95,7 +101,7 @@ export  function NewQuestionButton({Section}){
     )
 }
 
-export function NewSubQuestionButton({Section}){
+export function NewSubQuestionButton({Section, Question}){
     
     
     
@@ -109,15 +115,17 @@ export function NewSubQuestionButton({Section}){
                   title={`New Sub-Question`}
                   size='sm'
                 >
-                  <Dropdown.Item eventKey="1" onClick={() => {store.dispatch(addNewQuestion(Section.id,{id:uuidv4(),
+                  <Dropdown.Item eventKey="1" onClick={() => {store.dispatch(addConditionSubQuestion(Section.id,Question.id,{id:uuidv4(),
                                                                                                         section_id:Section.id,
+                                                                                                        question_id:Question.id,
                                                                                                         type: 'free-text-small',
                                                                                                         required: false,
                                                                                                         logical:false,
                                                                                                         content:{text:''}
                                                                                                         }))}} >Freetext Field - Small</Dropdown.Item>
-                  <Dropdown.Item eventKey="2" onClick={() => {store.dispatch(addNewQuestion(Section.id,{id:uuidv4(),
+                  <Dropdown.Item eventKey="2" onClick={() => {store.dispatch(addConditionSubQuestion(Section.id,Question.id,{id:uuidv4(),
                                                                                                         section_id:Section.id,
+                                                                                                        question_id:Question.id,
                                                                                                         required: false,
                                                                                                         logical:false,
                                                                                                         type: 'free-text-large',
@@ -125,8 +133,9 @@ export function NewSubQuestionButton({Section}){
                   
                   <Dropdown.Divider />
 
-                  <Dropdown.Item eventKey="3" onClick={() => {store.dispatch(addNewQuestion(Section.id,{id:uuidv4(),
+                  <Dropdown.Item eventKey="3" onClick={() => {store.dispatch(addConditionSubQuestion(Section.id,Question.id,{id:uuidv4(),
                                                                                                         section_id:Section.id,
+                                                                                                        question_id:Question.id,
                                                                                                         required: false,
                                                                                                         logical:false,
                                                                                                         type: 'date-field',
@@ -134,23 +143,26 @@ export function NewSubQuestionButton({Section}){
 
                   <Dropdown.Divider />
 
-                  <Dropdown.Item eventKey="4" onClick={() => {store.dispatch(addNewQuestion(Section.id,{id:uuidv4(),
+                  <Dropdown.Item eventKey="4" onClick={() => {store.dispatch(addConditionSubQuestion(Section.id,Question.id,{id:uuidv4(),
                                                                                                         section_id:Section.id,
+                                                                                                        question_id:Question.id,
                                                                                                         required: false,
                                                                                                         logical:false,
                                                                                                         type: 'drop-down',
                                                                                                         conditional_question:{},
                                                                                                         content:{text:'',options:[]}
                                                                                                         }))}} >Dropdown Field</Dropdown.Item>
-                  <Dropdown.Item eventKey="5" onClick={() => {store.dispatch(addNewQuestion(Section.id,{id:uuidv4(),
+                  <Dropdown.Item eventKey="5" onClick={() => {store.dispatch(addConditionSubQuestion(Section.id,Question.id,{id:uuidv4(),
                                                                                                         section_id:Section.id,
+                                                                                                        question_id:Question.id,
                                                                                                         required: false,
                                                                                                         logical:false,
                                                                                                         type: 'selection',
                                                                                                         conditional_question:{},
                                                                                                         content:{options:[]}}))}} >Selection Field</Dropdown.Item>
-                  <Dropdown.Item eventKey="6" onClick={() => {store.dispatch(addNewQuestion(Section.id,{id:uuidv4(),
+                  <Dropdown.Item eventKey="6" onClick={() => {store.dispatch(addConditionSubQuestion(Section.id,Question.id,{id:uuidv4(),
                                                                                                         section_id:Section.id,
+                                                                                                        question_id:Question.id,
                                                                                                         required: false,
                                                                                                         logical:false,
                                                                                                         conditional_question:{},
@@ -159,8 +171,9 @@ export function NewSubQuestionButton({Section}){
 
                   <Dropdown.Divider />
 
-                  <Dropdown.Item eventKey="7" onClick={() => {store.dispatch(addNewQuestion(Section.id,{id:uuidv4(),
+                  <Dropdown.Item eventKey="7" onClick={() => {store.dispatch(addConditionSubQuestion(Section.id,Question.id,{id:uuidv4(),
                                                                                                         section_id:Section.id,
+                                                                                                        question_id:Question.id,
                                                                                                         required: false,
                                                                                                         logical:false,
                                                                                                         type: 'Address-Block',
@@ -171,8 +184,9 @@ export function NewSubQuestionButton({Section}){
                                                                                                                 state:'',
                                                                                                                 zip:'',}
                                                                                                         }))}} >Address block</Dropdown.Item>
-                  <Dropdown.Item eventKey="8" onClick={() => {store.dispatch(addNewQuestion(Section.id,{id:uuidv4(),
+                  <Dropdown.Item eventKey="8" onClick={() => {store.dispatch(addConditionSubQuestion(Section.id,Question.id,{id:uuidv4(),
                                                                                                         section_id:Section.id,
+                                                                                                        question_id:Question.id,
                                                                                                         required: false,
                                                                                                         logical:false,
                                                                                                         type: 'Contact-Block',
