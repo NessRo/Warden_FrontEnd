@@ -192,6 +192,18 @@ export default function NewQuestion ({Section}) {
                                             <ConditionalLogicToggle Section={Section} question={question} />
                                         </Col>
                                      </Row>
+                                     {question.logical === true ?(
+                                        <>
+                                        <ConditionLogicFlow question={question} section={Section}/>
+                                        
+                                        <Container fluid="md">
+                                            <NewSubQuestion Question={question} Section={Section}/>
+                                        </Container>
+                                        
+                                        
+                                        </>
+                                     ): null}
+                                        <div style={{ paddingTop: '8px' }}/>
                                 </Container>                                               
                                 </Col>
                                 <Col xs="auto">
@@ -229,9 +241,6 @@ export default function NewQuestion ({Section}) {
                                         <Row>
                                             <Col>
                                                 <RequiredToggle Section={Section} question={question} />
-                                            </Col>
-                                            <Col>
-                                                <ConditionalLogicToggle Section={Section} question={question} />
                                             </Col>
                                         </Row>
                                     </Container>                                               

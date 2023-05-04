@@ -13,7 +13,7 @@ import { clearState, addNewSection, updateQuestionaireTitle } from './actions';
 import { store } from '../../../store';
 import { StyledBottomNavBarButton } from './CustomStyledComponents';
 import { useSelector } from 'react-redux'
-import ViewQuestionaire from './QuestionaireView';
+import ViewQuestionaire from './QuestionaireView/QuestionaireView';
 
 
 

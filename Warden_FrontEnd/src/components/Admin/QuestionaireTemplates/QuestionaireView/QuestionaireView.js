@@ -1,12 +1,13 @@
 import { useSelector } from "react-redux";
 import { Row, Container, Form, Col, FloatingLabel } from "react-bootstrap";
+import { SectionBreakLine } from "../../../../SVGs/Lines";
 import DatePicker from "react-datepicker";
-import React from 'react'
+import React, {useState} from 'react'
 import 'react-datepicker/dist/react-datepicker.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
-import './QuestionaireTemplates.css'
-import { StyledCalendar } from "./CustomStyledComponents";
+import { StyledCalendar } from "../CustomStyledComponents";
+import ViewSubQuestion from "./ViewSubQuestion";
 
 const CustomCalendarIcon = React.forwardRef(({ value, onClick }, ref) => (
     <div className="input-group">
@@ -33,20 +34,21 @@ export default function ViewQuestionaire () {
 
     const template = useSelector(state => state.QuestionaireTemplates);
 
+    const [inputValue, setInputValue] = useState({});
+
+
     return(
         <>
-        <Row>
-            <h2>{template.TemplateName}</h2>
-        </Row>
+        
        
     
         {template.Sections.map((section) => (
             
             <Container id={section.id}>
                 <Row id={section.id}>
-                    <h3>{section.title}</h3>
+                    <SectionBreakLine section_name={section.title}/>
                 </Row>
-                <hr />
+         
                 {section.questions.map((question) => {
                     switch(question.type){
                         case 'free-text-small': {
@@ -85,13 +87,38 @@ export default function ViewQuestionaire () {
                                             {question.content.text}
                                             {question.required && <span style={{color: 'red'}}> *</span>}
                                         </Form.Label>
-                                        <Form.Select required={question.required}>
+                                        <Form.Select required={question.required} onChange={(e) => setInputValue({
+                                                                                                                    ...inputValue,
+                                                                                                                    [question.id]:e.target.value,
+                                        })}>
                                             <option  disabled selected>Select an option</option>
                                             {question.content.options.map((option, index) => (
-                                                <option value={option.index +1 }>{option}</option>
+                                                <option value={option}>{option}</option>
                                             ))}
                                             
                                         </Form.Select>
+                                    </Form.Group>
+                                    <Form.Group>
+                                    {question.logical === true ? (
+                                        question.conditional_question.condition_type === 'Equals' ? (
+                                            question.conditional_question.condition_value === inputValue[question.id] ?(
+                                                <>
+                                                    <div style={{ paddingTop: '8px' }}/>
+                                                    <ViewSubQuestion question={question.conditional_question.condition_sub_question}/>
+                                                </>
+                                            ): null
+                                            
+
+                                        ) : question.conditional_question.condition_type === 'Does not equal' ? (
+                                                question.conditional_question.condition_value !== inputValue[question.id] ?(
+                                                <>
+                                                    <ViewSubQuestion question={question.conditional_question.condition_sub_question}/>
+                                                </>
+                                            ): null
+                                        ) : null
+                                    ) : null}
+
+                                   
                                     </Form.Group>
                                     <br />
                                 </Form>
@@ -102,19 +129,44 @@ export default function ViewQuestionaire () {
                             return(
                                 <Form id={question.id}>
                                     <Form.Group>
-                                        <Form.Label required={question.required}>
+                                        <Form.Label required={question.required} >
                                             {question.content.text}
                                             {question.required && <span style={{color: 'red'}}> *</span>}
                                         </Form.Label>
                                         {question.content.options.map((option, index) => (
                                                 <Form.Check
                                                 type="radio"
-                                                name="radioGroup"
-                                                id={option.index}  
+                                                name={`radioGroup-${question.id}`}
+                                                id={`${question.id}-${index}`}  
                                                 label={option}
+                                                onChange={(e) => {setInputValue({
+                                                    ...inputValue,
+                                                    [question.id]:e.target.labels[0].textContent})} }
                                                 />
                                             ))}
 
+                                    </Form.Group>
+                                    <Form.Group>
+                                    {question.logical === true ? (
+                                        question.conditional_question.condition_type === 'Equals' ? (
+                                            question.conditional_question.condition_value === inputValue[question.id] ?(
+                                                <>
+                                                    <div style={{ paddingTop: '8px' }}/>
+                                                    <ViewSubQuestion question={question.conditional_question.condition_sub_question}/>
+                                                </>
+                                            ): null
+                                            
+
+                                        ) : question.conditional_question.condition_type === 'Does not equal' ? (
+                                                question.conditional_question.condition_value !== inputValue[question.id] ?(
+                                                <>
+                                                    <ViewSubQuestion question={question.conditional_question.condition_sub_question}/>
+                                                </>
+                                            ): null
+                                        ) : null
+                                    ) : null}
+
+                                   
                                     </Form.Group>
                                     <br />
                                 </Form>
@@ -241,7 +293,7 @@ export default function ViewQuestionaire () {
                                        
                                     </Col>
                                 </Row>
-                                <hr />
+                                <br />
                             </Form>
                             )
                         }
