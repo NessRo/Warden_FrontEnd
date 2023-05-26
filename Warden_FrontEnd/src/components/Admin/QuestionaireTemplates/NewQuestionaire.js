@@ -15,6 +15,8 @@ import { StyledBottomNavBarButton } from './CustomStyledComponents';
 import { useSelector } from 'react-redux'
 import ViewQuestionaire from './QuestionaireView/QuestionaireView';
 import { handleQuestionairePublish } from './ApiHandlers/PostHandlers';
+import PublishLoading from './Animations/Components/loading';
+import { BiCheckCircle } from 'react-icons/bi';
 
 
 
@@ -66,6 +68,8 @@ const NewQuestionaire = () => {
 
     //reads current state of template
     const template = useSelector(state => state.QuestionaireTemplates);
+    const templateCopy = { ...template };
+
 
 
     
@@ -157,7 +161,7 @@ const NewQuestionaire = () => {
                       <Button variant="secondary" onClick={handleCloseSubmitWarning}>
                         Close
                       </Button>
-                      <Button variant="primary" onClick={() => {handleShowPublish();handleCloseSubmitWarning();handleQuestionairePublish(template,       // postData
+                      <Button variant="primary" onClick={() => {handleShowPublish();handleCloseSubmitWarning();handleQuestionairePublish(templateCopy,       // postData
                                                                                                                                         setIsLoading,   // loadingState
                                                                                                                                         setError,       // errorState
                                                                                                                                         setResponse,    // responseState
@@ -170,12 +174,15 @@ const NewQuestionaire = () => {
                   </Modal>
                   <Modal show={showPublish}>
                     <Modal.Body>
-                      <p>Are you ready to publish this questionaire template? it will show up as a published questionaire ready used.</p>
+                      {isLoading ? <PublishLoading /> : (<div>
+                                                          <BiCheckCircle size={24} color="green" /> Publish successful!
+                                                        </div>)}
                     </Modal.Body>
                     <Modal.Footer>
-                      <Button variant="secondary" onClick={handleClosePublish}>
+                      {isLoading ? null : 
+                      <Button variant="secondary" onClick={() => {handleClosePublish();handleCancel();}}>
                         Close
-                      </Button>
+                      </Button>}
                     </Modal.Footer>
                   </Modal>
                 
