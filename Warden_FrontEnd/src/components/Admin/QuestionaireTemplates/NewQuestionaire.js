@@ -1,7 +1,7 @@
 import React from 'react'
 import { Navbar, Nav } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
-import { useState } from 'react'
+import { useState, useRef  } from 'react'
 import { Form } from "react-bootstrap";
 import { Button, Modal, FloatingLabel } from "react-bootstrap";
 import { Row, Col } from "react-bootstrap";
@@ -14,6 +14,7 @@ import { store } from '../../../store';
 import { StyledBottomNavBarButton } from './CustomStyledComponents';
 import { useSelector } from 'react-redux'
 import ViewQuestionaire from './QuestionaireView/QuestionaireView';
+import { handleQuestionairePublish } from './ApiHandlers/PostHandlers';
 
 
 
@@ -33,15 +34,38 @@ const NewQuestionaire = () => {
       navigate('/Questionaire-Templates');
     };
 
+    // handles all the Cancel button modals and modal states
     const [showCancelWarning, setCancelWarning] = useState(false);
 
     const handleCloseCancelWarning = () => setCancelWarning(false);
     const handleShowCancelWarning = () => setCancelWarning(true);
 
+    // handles all the View button modals and modal states
     const [showViewScreen, setViewScreenn] = useState(false);
 
     const handleCloseViewScreen = () => setViewScreenn(false);
     const handleShowViewScreen = () => setViewScreenn(true);
+
+    // handles all the submit button modals and modal states
+    const [showSubmitWarning, setSubmitWarning] = useState(false);
+
+    const handleCloseSubmitWarning = () => setSubmitWarning(false);
+    const handleShowSubmitWarning = () => setSubmitWarning(true);
+
+    // handles all the Publish modals and modal states
+    const [showPublish, setPublish] = useState(false);
+
+    const handleClosePublish = () => setPublish(false);
+    const handleShowPublish = () => setPublish(true);
+
+    // handles all the API request states and errors to backend service.
+    const [response, setResponse] = useState(null);
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const axiosSource = useRef(null);
+
+    //reads current state of template
+    const template = useSelector(state => state.QuestionaireTemplates);
 
 
     
@@ -49,7 +73,7 @@ const NewQuestionaire = () => {
 
     const state = store.getState()
 
-    const template = useSelector(state => state.QuestionaireTemplates);
+    
   
     return (
         
@@ -121,9 +145,39 @@ const NewQuestionaire = () => {
                 <StyledBottomNavBarButton  size="md" onClick={handleCancel}>
                     Save Draft
                 </StyledBottomNavBarButton>
-                <StyledBottomNavBarButton  size="md" onClick={handleCancel}>
-                    Submit
-                </StyledBottomNavBarButton>
+                <StyledBottomNavBarButton  size="md" onClick={handleShowSubmitWarning}>Submit </StyledBottomNavBarButton>
+                  <Modal show={showSubmitWarning} onHide={handleCloseSubmitWarning}>
+                    <Modal.Header closeButton>
+                      <Modal.Title>Publish Questionaire</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <p>Are you ready to publish this questionaire template? it will show up as a published questionaire ready used.</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="secondary" onClick={handleCloseSubmitWarning}>
+                        Close
+                      </Button>
+                      <Button variant="primary" onClick={() => {handleShowPublish();handleCloseSubmitWarning();handleQuestionairePublish(template,       // postData
+                                                                                                                                        setIsLoading,   // loadingState
+                                                                                                                                        setError,       // errorState
+                                                                                                                                        setResponse,    // responseState
+                                                                                                                                        axiosSource,    // axiosSource
+                                                                                                                                        'publish'     // publishType
+                                                                                                                                        )}}>
+                        Publish
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
+                  <Modal show={showPublish}>
+                    <Modal.Body>
+                      <p>Are you ready to publish this questionaire template? it will show up as a published questionaire ready used.</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="secondary" onClick={handleClosePublish}>
+                        Close
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
                 
               </Col>
                 

@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 const initialTemplateState = {id:uuidv4(),
                                 TemplateName:'',
-                                created:'',
                                 Sections:[]}
 
 
