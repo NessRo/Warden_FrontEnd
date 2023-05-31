@@ -16,7 +16,7 @@ import { useSelector } from 'react-redux'
 import ViewQuestionaire from './QuestionaireView/QuestionaireView';
 import { handleQuestionairePublish } from './ApiHandlers/PostHandlers';
 import PublishLoading from './Animations/Components/loading';
-import { BiCheckCircle } from 'react-icons/bi';
+import { BiCheckCircle, BiErrorCircle } from 'react-icons/bi';
 
 
 
@@ -59,11 +59,15 @@ const NewQuestionaire = () => {
 
     const handleClosePublish = () => setPublish(false);
     const handleShowPublish = () => setPublish(true);
+    const handleClosePublishError = () => setIsError(false);
+    
 
     // handles all the API request states and errors to backend service.
     const [response, setResponse] = useState(null);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [isPublished, setIsPublished] = useState(false);
+    const [isError, setIsError] = useState(false);
     const axiosSource = useRef(null);
 
     //reads current state of template
@@ -161,28 +165,43 @@ const NewQuestionaire = () => {
                       <Button variant="secondary" onClick={handleCloseSubmitWarning}>
                         Close
                       </Button>
-                      <Button variant="primary" onClick={() => {handleShowPublish();handleCloseSubmitWarning();handleQuestionairePublish(templateCopy,       // postData
+                      <Button disabled={isLoading} variant="primary" onClick={() => {handleQuestionairePublish(templateCopy,       // postData
                                                                                                                                         setIsLoading,   // loadingState
-                                                                                                                                        setError,       // errorState
+                                                                                                                                        setError,       // errorMessage
                                                                                                                                         setResponse,    // responseState
                                                                                                                                         axiosSource,    // axiosSource
+                                                                                                                                        setIsPublished, // publishState
+                                                                                                                                        setIsError,     // errorState
+                                                                                                                                        setSubmitWarning, //submitWarning
                                                                                                                                         'publish'     // publishType
-                                                                                                                                        )}}>
-                        Publish
+                                                                                                                                        ); setIsLoading(true)}}>
+                        {isLoading ? '...Publishing' : "Publish"}
                       </Button>
                     </Modal.Footer>
                   </Modal>
-                  <Modal show={showPublish}>
+                  <Modal show={isError} onHide={handleClosePublishError}>
                     <Modal.Body>
-                      {isLoading ? <PublishLoading /> : (<div>
-                                                          <BiCheckCircle size={24} color="green" /> Publish successful!
-                                                        </div>)}
+                      <div>
+                          <p><BiErrorCircle size={24} color="red" /> Publish un-successful! server error, contact your administrator.</p>
+                          <p>{error && error.message ? error.message : null}</p>
+                      </div>
                     </Modal.Body>
                     <Modal.Footer>
-                      {isLoading ? null : 
-                      <Button variant="secondary" onClick={() => {handleClosePublish();handleCancel();}}>
+                      <Button variant="secondary" onClick={() => {handleClosePublishError(); console.log(error)}}>
                         Close
-                      </Button>}
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
+                  <Modal show={isPublished}>
+                    <Modal.Body>
+                      <div>
+                          <p><BiCheckCircle size={24} color="green" /> Publish successful!</p>
+                      </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="secondary" onClick={() => {handleClosePublish(); handleCancel()}}>
+                        Close
+                      </Button>
                     </Modal.Footer>
                   </Modal>
                 

@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-export const handleQuestionairePublish = (postData, loadingState, errorState, responseState, axiosSource, publishType) => {
+export const handleQuestionairePublish = (postData, loadingState, errorMessage, responseState, axiosSource, publishState, errorState, submitWarning, publishType) => {
+
+    
     axiosSource.current = axios.CancelToken.source();
 
     const apiUrl = `${process.env.REACT_APP_BACKEND_API_URL}/questionaire_templates/append`;
@@ -29,19 +31,23 @@ export const handleQuestionairePublish = (postData, loadingState, errorState, re
             throw new Error("unrecognized publish type");
     }
 
-    loadingState(true);
 
     axios.post(apiUrl, postData, config)
       .then(response => {
         responseState(response.data);
+        publishState(true);
+        submitWarning(false);
         loadingState(false);
       })
       .catch(error => {
         if (axios.isCancel(error)) {
           console.log('Request cancelled:', error.message);
         } else {
-            errorState(error);
+            errorMessage(error);
+            errorState(true);
+            submitWarning(false);
             loadingState(false);
         }
       });
+    
   };

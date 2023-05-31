@@ -8,7 +8,7 @@ const PublishLoading = () => {
       src={animationData}
       background="transparent"
       speed={1}
-      style={{ width: '300px', height: '300px' }}
+      style={{ width: '100%', height: '100%' }}
       loop
       autoplay
     />
