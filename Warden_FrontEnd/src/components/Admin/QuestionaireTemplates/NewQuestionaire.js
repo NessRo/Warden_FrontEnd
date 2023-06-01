@@ -57,7 +57,7 @@ const NewQuestionaire = () => {
     // handles all the Publish modals and modal states
     const [showPublish, setPublish] = useState(false);
 
-    const handleClosePublish = () => setPublish(false);
+    const handleClosePublish = () => {setIsPublished(false); setIsDrafted(false);};
     const handleShowPublish = () => setPublish(true);
     const handleClosePublishError = () => setIsError(false);
     
@@ -67,6 +67,7 @@ const NewQuestionaire = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [isPublished, setIsPublished] = useState(false);
+    const [isDrafted, setIsDrafted] = useState(false);
     const [isError, setIsError] = useState(false);
     const axiosSource = useRef(null);
 
@@ -150,8 +151,18 @@ const NewQuestionaire = () => {
                   </Modal>
                     
                 
-                <StyledBottomNavBarButton  size="md" onClick={handleCancel}>
-                    Save Draft
+                <StyledBottomNavBarButton  disabled={isLoading} variant="primary" onClick={() => {handleQuestionairePublish(templateCopy,       // postData
+                                                                                                                                        setIsLoading,   // loadingState
+                                                                                                                                        setError,       // errorMessage
+                                                                                                                                        setResponse,    // responseState
+                                                                                                                                        axiosSource,    // axiosSource
+                                                                                                                                        setIsPublished, // publishState
+                                                                                                                                        setIsDrafted,   // draftState
+                                                                                                                                        setIsError,     // errorState
+                                                                                                                                        setSubmitWarning, //submitWarning
+                                                                                                                                        'draft'     // publishType
+                                                                                                                                        ); setIsLoading(true)}}>
+                    {isLoading ? '...Saving Draft' : "Save Draft"}
                 </StyledBottomNavBarButton>
                 <StyledBottomNavBarButton  size="md" onClick={handleShowSubmitWarning}>Submit </StyledBottomNavBarButton>
                   <Modal show={showSubmitWarning} onHide={handleCloseSubmitWarning}>
@@ -171,6 +182,7 @@ const NewQuestionaire = () => {
                                                                                                                                         setResponse,    // responseState
                                                                                                                                         axiosSource,    // axiosSource
                                                                                                                                         setIsPublished, // publishState
+                                                                                                                                        setIsDrafted,   // draftState
                                                                                                                                         setIsError,     // errorState
                                                                                                                                         setSubmitWarning, //submitWarning
                                                                                                                                         'publish'     // publishType
@@ -200,6 +212,18 @@ const NewQuestionaire = () => {
                     </Modal.Body>
                     <Modal.Footer>
                       <Button variant="secondary" onClick={() => {handleClosePublish(); handleCancel()}}>
+                        Close publish
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
+                  <Modal show={isDrafted}>
+                    <Modal.Body>
+                      <div>
+                          <p><BiCheckCircle size={24} color="green" /> Draft Saved!</p>
+                      </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="secondary" onClick={() => {handleClosePublish()}}>
                         Close
                       </Button>
                     </Modal.Footer>

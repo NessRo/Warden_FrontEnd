@@ -29,6 +29,12 @@ export const StyledBottomNavBarButton = styled(Button)`
     box-shadow: 0 0 0px 0px  white;
   }
 
+  &:disabled {
+    background-color: grey;
+    color: lightgrey;
+    border-color: grey;
+    cursor: not-allowed;
+  }
 `;
 
 export const StyledCalendar = styled.div`
